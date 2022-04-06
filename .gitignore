@@ -24,3 +24,7 @@ yarn-error.log*
 
 # merge
 .uxpin-merge/*
+
+# storybook
+storybook-static/*
+build-storybook.log
