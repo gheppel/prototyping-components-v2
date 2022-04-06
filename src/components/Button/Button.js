@@ -3,38 +3,23 @@ import PropTypes from "prop-types";
 import ButtonM from "@mui/material/Button";
 import Icon from "../Icon/Icon";
 import { iconVariants } from "../Icon/icon-variants";
-import hacker from "../../theming/themes/hacker";
 import ThemeProviderLocal from "../../theming/utils/ThemeProviderLocal";
-// import { useTheme } from "@mui/material";
-
-import { ThemeProvider } from "@mui/material/styles";
-import { createTheme } from "@mui/material";
-import { mergeThemes } from "../../theming/utils/mergeThemes";
-// import { styled } from "@mui/styles";
+import { themeProfiles } from "../../theming/utils/themeCustomization";
 
 /**
  * @uxpindocurl https://mui.com/components/buttons/#main-content
  */
 function Button(props) {
   const { uxpinRef, ...other } = props;
-  // let theme = undefined;
-  // const ThemeProviderButton = (props) => {
-  //   if (props.themeProfile !== undefined) {
-  //     console.log("local theme detected");
-  //     theme = mergeThemes(props);
-
-  //     return <ThemeProvider theme={theme}>{props.children}</ThemeProvider>;
-  //   }
-  //   return props.children;
-  // };
 
   return (
-    <ThemeProviderLocal {...props}>
+    <ThemeProviderLocal {...props} themeProfile={props.themeProfile}>
       <ButtonM
         {...other}
         ref={uxpinRef}
         startIcon={props.startIcon && <Icon>{props.startIcon}</Icon>}
         endIcon={props.endIcon && <Icon>{props.endIcon}</Icon>}
+
         //sx={{ backgroundColor: theme.palette.primary.main }}
       >
         {props.children}
@@ -53,7 +38,7 @@ Button.propTypes = {
   /**
    * The color theme specific to this component.
    */
-  theme: PropTypes.oneOf(["light", "dark", "hacker"]),
+  themeProfile: PropTypes.oneOf(["light", "dark", "hacker"]),
 
   /**
    * The color of the button.
@@ -72,6 +57,11 @@ Button.propTypes = {
    * If `true`, the button will be disabled.
    */
   disabled: PropTypes.bool,
+
+  /**
+   * If `true`, the button will be disabled.
+   */
+  randomProp: PropTypes.bool,
 
   /**
    * If `true`, the button will have no elevation.

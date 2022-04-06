@@ -11,10 +11,10 @@ export const themes = {
   ],
   default: { name: "light", data: light },
 };
-
+export const themeProfiles = getThemeNames();
 //set to true if you want to use custom variables and design tokens
 //if set to false, only the MUI theme will be availabe
-export const customize = false;
+export const customize = true;
 
 //global styling variables
 export const vars = {
@@ -80,3 +80,10 @@ export const componentVariants = {
 
 //convert deep vars objects to plain arrays
 //to do
+function getThemeNames() {
+  let themeProfiles = [];
+  themes.themes.forEach((theme) => {
+    themeProfiles.push(theme.name);
+  });
+  return themeProfiles;
+}

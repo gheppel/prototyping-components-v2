@@ -22,7 +22,6 @@ export const ButtonPrimary = Template.bind({});
 ButtonPrimary.args = {
   children: "Primärbutton",
   variant: "contained",
-  themeProfile: "hacker",
 };
 // export const ButtonSecondary = Template.bind({});
 // ButtonSecondary.args = {

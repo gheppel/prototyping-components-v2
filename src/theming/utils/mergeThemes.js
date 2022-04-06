@@ -3,6 +3,7 @@ import { themes, customize, vars, token } from "./themeCustomization";
 import { hexToRgbA } from "./hexToRGBA";
 
 function mergeThemes(props) {
+  console.log(props);
   //gets full theme data of the chosen theme (from themeCustomization.js)
   function getThemeData(chosenTheme) {
     let themeData = themes.default.data;
@@ -13,81 +14,69 @@ function mergeThemes(props) {
     });
     return themeData;
   }
-
+  console.log("ThemeProfile: ", props.themeProfile);
   let basicTheme = createTheme(getThemeData(props.themeProfile));
   // console.log("basic Theme: ", basicTheme);
 
   //merges theme properties received through component props into the theme
   if (customize) {
-    let mergedTheme = createTheme({
-      ...basicTheme,
+    // console.log(basicTheme.palette.primary.main);
+    // console.log(basicTheme.palette.mode);
+
+    //props that don't need the createTheme helper functions
+
+    //ripple
+    // if (props.disableRipple) {
+    //   basicTheme.components = {
+    //     MuiButtonBase: {
+    //       defaultProps: {
+    //         disableRipple: true,
+    //       },
+    //     },
+    //   };
+
+    //   console.log("disabled ripple");
+    // }
+
+    //props that need the createTheme helper functions
+    const customizations = {
       palette: {
-        primary: {
-          main: props.primary ? props.primary : basicTheme.palette.primary.main,
-        },
+        primary: {},
+        secondary: {},
       },
-    });
-    //custom color scheme
-    if (props.colorscheme && props.colorscheme !== "default") {
-      console.log(props.colorscheme);
-      let color = props.colorscheme;
-      if (props.colorscheme && props.colorscheme !== "") {
-        Object.defineProperty(mergedTheme.components, "MuiButton", {
-          value: {
-            variants: [
-              {
-                props: {
-                  variant: "contained",
-                },
-                style: {
-                  backgroundColor: vars.color.general[color].main,
-                  color: vars.color.general[color].contrastText,
-                  ":hover": {
-                    backgroundColor: vars.color.general[color].dark,
-                  },
-                },
-              },
-              {
-                props: {
-                  variant: "text",
-                },
-                style: {
-                  color: vars.color.general[color].main,
-                  ":hover": {
-                    backgroundColor: hexToRgbA(
-                      vars.color.general[color].main,
-                      "0.04"
-                    ),
-                  },
-                },
-              },
-              {
-                props: {
-                  variant: "outlined",
-                },
-                style: {
-                  borderColor: vars.color.general[color].main,
-                  color: vars.color.general[color].main,
-                  ":hover": {
-                    color: vars.color.general[color].dark,
-                  },
-                },
-              },
-            ],
-          },
-        });
-        //console.log(mergedTheme.components);
-      }
+      components: {},
+      shape: {},
+    };
+    if (props.disableRipple) {
+      customizations.components.MuiButtonBase = {
+        defaultProps: {
+          disableRipple: true,
+        },
+      };
     }
+    if (props.primary) {
+      customizations.palette.primary.main = props.primary;
+    }
+    if (props.secondary) {
+      customizations.palette.secondary.main = props.secondary;
+    }
+    if (props.borderRadius) {
+      customizations.shape = { borderRadius: parseInt(props.borderRadius) };
+    }
+    // console.log(basicTheme);
+    let mergedTheme = createTheme(basicTheme, customizations);
+
     //console.log("mergedTheme: ", mergedTheme);
     // console.log("theme: ", basicTheme.palette.primary.main);
     // console.log("props.primary: ", props.primary);
     // console.log("custom theme: ", mergedTheme.palette.primary.main);
-    //console.log(mergedTheme);
+    //   console.log(mergedTheme);
+    //   return mergedTheme;
+    // }
+    console.log("using default theme, no customization");
+    //console.log(basicTheme);
+    console.log("merged theme: ", mergedTheme);
     return mergedTheme;
   }
-  console.log("using default theme, no customization");
-  //console.log(basicTheme);
-  return basicTheme;
 }
 export { mergeThemes };

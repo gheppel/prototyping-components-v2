@@ -1,6 +1,6 @@
 // import logo from "./logo.svg";
 import "./App.css";
-import ThemeSwitcherGeneral from "./components/ThemeSwitcherGlobal/ThemeSwitcherGlobal";
+import ThemeSwitcherGlobal from "./components/ThemeSwitcherGlobal/ThemeSwitcherGlobal";
 import Card from "./components/Card/Card";
 import CardActions from "./components/CardActions/CardActions";
 import CardActionArea from "./components/CardActionArea/CardActionArea";
@@ -22,8 +22,14 @@ function App() {
     <div className="App">
       <header className="App-header">
         <div style={{ margin: "2em" }}>
-          <ThemeSwitcherGeneral theme="dark">
-            <Button variant="contained" themeProfile="hacker">
+          <ThemeSwitcherGlobal
+            themeProfile="light"
+            disableRipple={true}
+            primary="#abc765"
+            secondary="#abc765"
+            borderRadius={0}
+          >
+            <Button variant="contained" disableRipple={true}>
               Primärbutton
             </Button>
             <Switch></Switch>
@@ -85,7 +91,7 @@ function App() {
                 </Typography>
               </AccordionDetails>
             </Accordion>
-          </ThemeSwitcherGeneral>
+          </ThemeSwitcherGlobal>
         </div>
       </header>
     </div>

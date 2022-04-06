@@ -1,34 +1,23 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { ThemeProvider } from "@mui/material/styles";
 import {
   themes,
   customize,
   vars,
   token,
 } from "../../theming/utils/themeCustomization";
-import Button from "../Button/Button";
+import { mergeThemes } from "../../theming/utils/mergeThemes";
 
-function ThemeSwitcherGeneral(props) {
-  // console.log("props: ", props);
+function ThemeSwitcherGlobal(props) {
+  console.log("ThemeSwitcher props: ", props);
 
-  function getThemeData(chosenTheme) {
-    let themeData = themes.default.data;
-    themes.themes.forEach((theme) => {
-      if (theme.name === chosenTheme) {
-        themeData = theme.data;
-      }
-    });
-    return themeData;
-  }
-
-  let basicTheme = createTheme(getThemeData(props.theme));
-  console.log(props.theme);
+  let theme = mergeThemes(props);
   // console.log(basicTheme);
 
-  return <ThemeProvider theme={basicTheme}>{props.children}</ThemeProvider>;
+  return <ThemeProvider theme={theme}>{props.children}</ThemeProvider>;
 }
-ThemeSwitcherGeneral.propTypes = {
+ThemeSwitcherGlobal.propTypes = {
   /**
    * The label of the button.
    * @uxpinpropname Label
@@ -38,7 +27,27 @@ ThemeSwitcherGeneral.propTypes = {
   /**
    * The color theme.
    */
-  theme: PropTypes.oneOf(["light", "dark", "hacker"]),
+  themeProfile: PropTypes.oneOf(["light", "dark", "hacker"]),
+
+  /**
+   * Disables the ripple effect.
+   */
+  disableRipple: PropTypes.bool,
+
+  /**
+   * Changes the primary color.
+   */
+  primary: PropTypes.string,
+
+  /**
+   * Changes the secondary color.
+   */
+  secondary: PropTypes.string,
+
+  /**
+   * Changes the global border radius.
+   */
+  borderRadius: PropTypes.number,
 };
 
-export default ThemeSwitcherGeneral;
+export default ThemeSwitcherGlobal;
