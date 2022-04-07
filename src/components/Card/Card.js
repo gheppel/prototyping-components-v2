@@ -1,16 +1,15 @@
 import React from "react";
 import PropTypes from "prop-types";
-import CardM from '@mui/material/Card';
-
+import CardM from "@mui/material/Card";
+import { useTheme } from "@mui/material/styles";
 
 /**
  * @uxpindocurl https://mui.com/api/card/
  */
 function Card(props) {
-    return (
-        <CardM {...props}>{props.children}</CardM>
-    )
-} 
+  //console.log("Card theme:", useTheme());
+  return <CardM {...props}>{props.children}</CardM>;
+}
 
 Card.propTypes = {
   /**
@@ -33,7 +32,7 @@ Card.propTypes = {
   /**
    * The system prop that allows defining system overrides as well as additional CSS styles.
    */
-  sx: PropTypes.object
-}
+  sx: PropTypes.object,
+};
 
-export default Card
+export default Card;

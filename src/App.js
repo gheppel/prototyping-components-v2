@@ -17,6 +17,9 @@ import Accordion from "./components/Accordion/Accordion";
 import AccordionDetails from "./components/AccordionDetails/AccordionDetails";
 import AccordionSummary from "./components/AccordionSummary/AccordionSummary";
 import Switch from "./components/Switch/Switch";
+import Box from "./components/Box/Box";
+import Breadcrumbs from "./components/Breadcrumbs/Breadcrumbs";
+import Link from "./components/Link/Link";
 
 function App() {
   return (
@@ -29,6 +32,7 @@ function App() {
             primary=""
             secondary=""
             borderRadius="0"
+            mode=""
           >
             <Card uxpId="Card-1" sx={{ maxWidth: 345 }}>
               <CardHeader
@@ -73,13 +77,14 @@ function App() {
                 </Button>
               </CardActions>
             </Card>
-            <ThemeSwitcherColor themeProfile="dark">
-              <Button
-                variant="contained"
-                themeProfile="hacker"
-                borderRadius="10"
-              >
-                Primärbutton
+            <ThemeSwitcherColor
+              themeProfile=""
+              text_primary=""
+              primary_contrastText=""
+              mode=""
+            >
+              <Button variant="contained" size="large">
+                Primähhhhhhhhrböttän
               </Button>
               <Switch></Switch>
               <Card uxpId="Card-1" sx={{ maxWidth: 345 }}>
@@ -140,6 +145,27 @@ function App() {
                   </Typography>
                 </AccordionDetails>
               </Accordion>
+              <Box uxpId="box1">
+                <Typography uxpId="box2" variant="h3">
+                  Your ideas
+                </Typography>
+              </Box>
+              <Breadcrumbs aria-label="breadcrumb" uxpId="breadcrumb-1">
+                <Link uxpId="link-1" underline="hover" color="inherit" href="/">
+                  Files
+                </Link>
+                <Link
+                  uxpId="link-2"
+                  underline="hover"
+                  color="inherit"
+                  href="/getting-started/installation/"
+                >
+                  Documents
+                </Link>
+                <Typography uxpId="link-3" color="text.secondary">
+                  Analysis
+                </Typography>
+              </Breadcrumbs>
             </ThemeSwitcherColor>
           </ThemeSwitcherGlobal>
         </div>
