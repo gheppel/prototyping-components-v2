@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import TypographyM from "@mui/material/Typography";
+import parse from "react-html-parser";
 
 //import BoxM from "../Box/Box";
 
@@ -9,6 +10,7 @@ import TypographyM from "@mui/material/Typography";
  */
 function Typography(props) {
   const { uxpinRef, ...other } = props;
+  console.log(parse(props.children));
   return <TypographyM {...props}>{props.children}</TypographyM>;
 }
 

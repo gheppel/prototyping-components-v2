@@ -22,6 +22,7 @@ import Breadcrumbs from "./components/Breadcrumbs/Breadcrumbs";
 import Link from "./components/Link/Link";
 
 function App() {
+  let string = String("<a href=''>Test String</a>");
   return (
     <div className="App">
       <header className="App-header">
@@ -79,9 +80,9 @@ function App() {
             </Card>
             <ThemeSwitcherColor
               themeProfile=""
-              text_primary=""
               primary_contrastText=""
-              mode=""
+              mode="dark"
+              text_primary="#0f0"
             >
               <Button variant="contained" size="large">
                 Primähhhhhhhhrböttän
