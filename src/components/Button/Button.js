@@ -3,17 +3,22 @@ import PropTypes from "prop-types";
 import ButtonM from "@mui/material/Button";
 import Icon from "../Icon/Icon";
 import { iconVariants } from "../Icon/icon-variants";
-import ThemeProviderLocal from "../../theming/utils/ThemeProviderLocal";
+import ThemeProviderHelper from "../../theming/utils/ThemeProviderHelper";
 import { themeProfiles } from "../../theming/utils/themeCustomization";
+import { useTheme } from "@mui/material/styles";
 
 /**
  * @uxpindocurl https://mui.com/components/buttons/#main-content
  */
 function Button(props) {
   const { uxpinRef, ...other } = props;
-
+  const currentTheme = useTheme();
   return (
-    <ThemeProviderLocal {...props} themeProfile={props.themeProfile}>
+    <ThemeProviderHelper
+      {...props}
+      calledFrom="Button"
+      currentTheme={currentTheme}
+    >
       <ButtonM
         {...other}
         ref={uxpinRef}
@@ -24,7 +29,7 @@ function Button(props) {
       >
         {props.children}
       </ButtonM>
-    </ThemeProviderLocal>
+    </ThemeProviderHelper>
   );
 }
 
@@ -36,9 +41,10 @@ Button.propTypes = {
   children: PropTypes.node,
 
   /**
-   * The color theme specific to this component.
+   * The color theme specific to this component. Overrides any theme properties in parents if specified
+   * * @uxpinpropname theme
    */
-  themeProfile: PropTypes.oneOf(["light", "dark", "hacker"]),
+  themeProfile: PropTypes.oneOf(themeProfiles),
 
   /**
    * The color of the button.
@@ -57,11 +63,6 @@ Button.propTypes = {
    * If `true`, the button will be disabled.
    */
   disabled: PropTypes.bool,
-
-  /**
-   * If `true`, the button will be disabled.
-   */
-  randomProp: PropTypes.bool,
 
   /**
    * If `true`, the button will have no elevation.

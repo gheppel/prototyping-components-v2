@@ -3,8 +3,21 @@ import { themes, customize, vars, token } from "./themeCustomization";
 import { hexToRgbA } from "./hexToRGBA";
 
 function mergeThemes(props) {
-  console.log(props);
+  console.log("mergeThemes called from ", props.calledFrom);
+  console.log(
+    "currentTheme in ",
+    props.calledFrom,
+    "is: ",
+    " mode: ",
+    props.currentTheme.palette.mode,
+    " primary main: ",
+    props.currentTheme.palette.primary.main,
+    ", full theme: ",
+    props.currentTheme
+  );
+  console.log("ThemeProfile: ", props.themeProfile);
   //gets full theme data of the chosen theme (from themeCustomization.js)
+  //returns the default theme if the given themeProfile is undefined
   function getThemeData(chosenTheme) {
     let themeData = themes.default.data;
     themes.themes.forEach((theme) => {
@@ -14,31 +27,9 @@ function mergeThemes(props) {
     });
     return themeData;
   }
-  console.log("ThemeProfile: ", props.themeProfile);
-  let basicTheme = createTheme(getThemeData(props.themeProfile));
-  // console.log("basic Theme: ", basicTheme);
 
-  //merges theme properties received through component props into the theme
-  if (customize) {
-    // console.log(basicTheme.palette.primary.main);
-    // console.log(basicTheme.palette.mode);
-
-    //props that don't need the createTheme helper functions
-
-    //ripple
-    // if (props.disableRipple) {
-    //   basicTheme.components = {
-    //     MuiButtonBase: {
-    //       defaultProps: {
-    //         disableRipple: true,
-    //       },
-    //     },
-    //   };
-
-    //   console.log("disabled ripple");
-    // }
-
-    //props that need the createTheme helper functions
+  //merges custom properties into a given theme
+  function customizeTheme(currentTheme) {
     const customizations = {
       palette: {
         primary: {},
@@ -63,20 +54,26 @@ function mergeThemes(props) {
     if (props.borderRadius) {
       customizations.shape = { borderRadius: parseInt(props.borderRadius) };
     }
-    // console.log(basicTheme);
-    let mergedTheme = createTheme(basicTheme, customizations);
 
-    //console.log("mergedTheme: ", mergedTheme);
-    // console.log("theme: ", basicTheme.palette.primary.main);
-    // console.log("props.primary: ", props.primary);
-    // console.log("custom theme: ", mergedTheme.palette.primary.main);
-    //   console.log(mergedTheme);
-    //   return mergedTheme;
-    // }
-    console.log("using default theme, no customization");
-    //console.log(basicTheme);
-    console.log("merged theme: ", mergedTheme);
+    let mergedTheme = createTheme(currentTheme, customizations);
     return mergedTheme;
+  }
+
+  if (props.themeProfile !== undefined) {
+    //a specific theme was chosen
+
+    //get the chosen theme
+    const basicTheme = createTheme(getThemeData(props.themeProfile));
+
+    //merge any custom properties into it
+    const customizedTheme = customizeTheme(basicTheme);
+    return customizedTheme;
+  } else {
+    //no specific theme was chosen
+
+    //merge any custom properties into the current theme
+    const customizedTheme = customizeTheme(props.currentTheme);
+    return customizedTheme;
   }
 }
 export { mergeThemes };

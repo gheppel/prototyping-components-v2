@@ -1,25 +1,19 @@
 import React from "react";
-import ThemeSwitcherGeneral from "../components/ThemeSwitcherGlobal/ThemeSwitcherGlobal";
+import ThemeSwitcherGlobal from "../components/ThemeSwitcherGlobal/ThemeSwitcherGlobal";
 import { ButtonPrimary } from "./Button.stories";
 export default {
-  title: "MUI Components/ThemeSwitcher/ThemeSwitcherGeneral",
-  component: ThemeSwitcherGeneral,
+  title: "MUI Components/ThemeSwitcher/ThemeSwitcherGlobal",
+  component: ThemeSwitcherGlobal,
   argTypes: {},
 };
 
 const Template = (args) => {
   return (
-    <ThemeSwitcherGeneral {...args}>
+    <ThemeSwitcherGlobal {...args}>
       <ButtonPrimary {...ButtonPrimary.args}></ButtonPrimary>
-    </ThemeSwitcherGeneral>
+    </ThemeSwitcherGlobal>
   );
 };
 console.log();
-export const ThemeSwitcherGeneralPrimary = Template.bind({});
-ThemeSwitcherGeneralPrimary.args = {
-  theme: "hacker",
-};
-// ButtonPrimary.args = {
-//   variant: "contained",
-//   children: "Premiere",
-// };
+export const ThemeSwitcherGlobalPrimary = Template.bind({});
+ThemeSwitcherGlobalPrimary.args = {};

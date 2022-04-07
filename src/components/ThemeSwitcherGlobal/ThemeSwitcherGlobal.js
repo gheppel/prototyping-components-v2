@@ -1,22 +1,23 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { ThemeProvider } from "@mui/material/styles";
-import {
-  themes,
-  customize,
-  vars,
-  token,
-} from "../../theming/utils/themeCustomization";
-import { mergeThemes } from "../../theming/utils/mergeThemes";
-
+import ThemeProviderHelper from "../../theming/utils/ThemeProviderHelper";
+import { themeProfiles } from "../../theming/utils/themeCustomization";
+import { useTheme } from "@mui/material/styles";
 function ThemeSwitcherGlobal(props) {
-  console.log("ThemeSwitcher props: ", props);
-
-  let theme = mergeThemes(props);
+  //console.log("ThemeSwitcher props: ", props);
   // console.log(basicTheme);
-
-  return <ThemeProvider theme={theme}>{props.children}</ThemeProvider>;
+  const currentTheme = useTheme();
+  return (
+    <ThemeProviderHelper
+      {...props}
+      currentTheme={currentTheme}
+      calledFrom="ThemeSwitcherGlobal"
+    >
+      {props.children}
+    </ThemeProviderHelper>
+  );
 }
+
 ThemeSwitcherGlobal.propTypes = {
   /**
    * The label of the button.
@@ -25,9 +26,10 @@ ThemeSwitcherGlobal.propTypes = {
   children: PropTypes.node,
 
   /**
-   * The color theme.
+   * The color theme. Overrides any theme properties in parents if specified
+   * @uxpinpropname theme
    */
-  themeProfile: PropTypes.oneOf(["light", "dark", "hacker"]),
+  themeProfile: PropTypes.oneOf(themeProfiles),
 
   /**
    * Disables the ripple effect.
@@ -47,7 +49,7 @@ ThemeSwitcherGlobal.propTypes = {
   /**
    * Changes the global border radius.
    */
-  borderRadius: PropTypes.number,
+  borderRadius: PropTypes.string,
 };
 
 export default ThemeSwitcherGlobal;
