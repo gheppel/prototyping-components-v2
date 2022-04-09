@@ -1,35 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
 import ThemeProviderHelper from "../../theming/utils/ThemeProviderHelper";
-import { useTheme, createTheme } from "@mui/material/styles";
-import { deepmerge } from "@mui/utils";
+import { useTheme } from "@mui/material/styles";
 import { themeProfiles } from "../../theming/utils/themeCustomization";
-import { mergeThemes } from "../../theming/utils/mergeThemes";
+
 function ThemeSwitcherColor(props) {
-  //console.log("ColorSwitcher children: ", props.children);
   const currentTheme = useTheme();
-  let newProps = { currentTheme: currentTheme, mode: "light" };
 
-  console.log(
-    "themeswitchercolor theme: ",
-    mergeThemes({ props, ...newProps })
-  );
-  //console.log(currentTheme);
-
-  let light = createTheme({
-    palette: {
-      mode: "light",
-    },
-  });
-  //   let dark = createTheme({
-  //     palette: {
-  //       mode: "dark",
-  //     },
-  //   });
-  //   let mergedTheme = deepmerge(dark, light);
-  console.log("light: ", light);
-  //   console.log("dark: ", dark);
-  //   console.log("mergedTheme: ", mergedTheme);
   return (
     <ThemeProviderHelper
       {...props}
@@ -144,12 +121,12 @@ ThemeSwitcherColor.propTypes = {
   background_default: PropTypes.string,
 
   /**
-   * Changes the action_active color.
+   * Changes the action_active color. Should be in RGBA format.
    */
   action_active: PropTypes.string,
 
   /**
-   * Changes the action_hover color.
+   * Changes the action_hover color. Should be in RGBA format.
    */
   action_hover: PropTypes.string,
 
@@ -159,7 +136,7 @@ ThemeSwitcherColor.propTypes = {
   action_hoverOpacity: PropTypes.number,
 
   /**
-   * Changes the action_selected color.
+   * Changes the action_selected color. Should be in RGBA format.
    */
   action_selected: PropTypes.string,
 
@@ -169,7 +146,7 @@ ThemeSwitcherColor.propTypes = {
   action_selectedOpacity: PropTypes.number,
 
   /**
-   * Changes the action_disabled color.
+   * Changes the action_disabled color. Should be in RGBA format.
    */
   action_disabled: PropTypes.string,
 
@@ -179,7 +156,7 @@ ThemeSwitcherColor.propTypes = {
   action_disabledOpacity: PropTypes.number,
 
   /**
-   * Changes the action_focus color.
+   * Changes the action_focus color. Should be in RGBA format.
    */
   action_focus: PropTypes.string,
 
@@ -194,7 +171,7 @@ ThemeSwitcherColor.propTypes = {
   action_activatedOpacity: PropTypes.number,
 
   /**
-   * Changes the divider color.
+   * Changes the divider color. Should be in RGBA format.
    */
   divider: PropTypes.string,
 

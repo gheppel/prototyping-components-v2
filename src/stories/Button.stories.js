@@ -23,9 +23,3 @@ ButtonPrimary.args = {
   children: "Primärbutton",
   variant: "contained",
 };
-// export const ButtonSecondary = Template.bind({});
-// ButtonSecondary.args = {
-//   children: "Sekundärbutton",
-//   variant: "outlined",
-//   color: "secondary",
-// };

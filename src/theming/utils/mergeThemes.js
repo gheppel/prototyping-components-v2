@@ -205,6 +205,82 @@ function mergeThemes(props) {
       }
     }
 
+    //fonts
+    function customizeFonts() {
+      //general Properties
+      if (props.htmlFontSize && props.htmlFontSize !== 0) {
+        currentTheme.typography.htmlFontSize = parseInt(props.htmlFontSize);
+      }
+      if (props.fontFamily) {
+        currentTheme.typography.fontFamily = props.fontFamily;
+      }
+      if (props.fontSize && props.fontSize !== 0) {
+        currentTheme.typography.fontSize = parseInt(props.fontSize);
+      }
+      if (props.fontWeightLight && props.fontWeightLight !== 0) {
+        currentTheme.typography.fontWeightLight = parseInt(
+          props.fontWeightLight
+        );
+      }
+      if (props.fontWeightRegular && props.fontWeightRegular !== 0) {
+        currentTheme.typography.fontWeightRegular = parseInt(
+          props.fontWeightRegular
+        );
+      }
+      if (props.fontWeightMedium && props.fontWeightMedium !== 0) {
+        currentTheme.typography.fontWeightMedium = parseInt(
+          props.fontWeightMedium
+        );
+      }
+      if (props.fontWeightBold && props.fontWeightBold !== 0) {
+        currentTheme.typography.fontWeightBold = parseInt(props.fontWeightBold);
+      }
+
+      //variants
+      customizeFontVariants();
+      function customizeFontVariants() {
+        let propsToCheck = [
+          "fontFamily",
+          "fontWeight",
+          "fontSize",
+          "lineHeight",
+          "letterSpacing",
+          "textTransform",
+        ];
+        let variants = [
+          "h1",
+          "h2",
+          "h3",
+          "h4",
+          "h5",
+          "h6",
+          "subtitle1",
+          "subtitle2",
+          "body1",
+          "body2",
+          "button",
+          "caption",
+          "overline",
+        ];
+
+        variants.forEach((variant) => {
+          propsToCheck.forEach((prop) => {
+            let currentProp = variant + "_" + prop;
+            if (props[currentProp] && props[currentProp] !== 0) {
+              console.log("detected ", currentProp);
+              currentTheme.typography[variant][prop] = props[currentProp];
+              console.log(
+                "set theme for ",
+                currentProp,
+                " to ",
+                currentTheme.typography[variant][prop]
+              );
+            }
+          });
+        });
+      }
+    }
+    // console.log(currentTheme);
     return currentTheme;
   }
 

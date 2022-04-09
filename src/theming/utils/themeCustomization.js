@@ -1,6 +1,7 @@
 import hacker from "../../theming/themes/hacker";
 import dark from "../../theming/themes/dark";
 import light from "../../theming/themes/light";
+import defaultTheme from "../../components/UXPinWrapper/default-theme";
 
 //lists all available themes and default
 export const themes = {
@@ -9,7 +10,7 @@ export const themes = {
     { name: "light", data: light },
     { name: "hacker", data: hacker },
   ],
-  default: { name: "light", data: light },
+  default: { name: "default", data: defaultTheme },
 };
 export const themeProfiles = getThemeNames();
 //set to true if you want to use custom variables and design tokens

@@ -10,7 +10,7 @@ import parse from "react-html-parser";
  */
 function Typography(props) {
   const { uxpinRef, ...other } = props;
-  console.log(parse(props.children));
+  //console.log(parse(props.children));
   return <TypographyM {...props}>{props.children}</TypographyM>;
 }
 

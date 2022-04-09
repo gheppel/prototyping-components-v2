@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import ThemeProviderHelper from "../../theming/utils/ThemeProviderHelper";
 import { themeProfiles } from "../../theming/utils/themeCustomization";
 import { useTheme } from "@mui/material/styles";
-function ThemeSwitcherGlobal(props) {
+function ThemeSwitcherGeneral(props) {
   //console.log("ThemeSwitcher props: ", props);
   // console.log(basicTheme);
   const currentTheme = useTheme();
@@ -17,8 +17,9 @@ function ThemeSwitcherGlobal(props) {
     </ThemeProviderHelper>
   );
 }
-
-ThemeSwitcherGlobal.propTypes = {
+console.log(themeProfiles);
+const themes = themeProfiles;
+ThemeSwitcherGeneral.propTypes = {
   /**
    * The label of the button.
    * @uxpinpropname Label
@@ -29,7 +30,7 @@ ThemeSwitcherGlobal.propTypes = {
    * The color theme. Overrides any theme properties in parents if specified
    * @uxpinpropname theme
    */
-  themeProfile: PropTypes.oneOf(themeProfiles),
+  themeProfile: PropTypes.oneOf(themes),
 
   /**
    * Disables the ripple effect.
@@ -52,4 +53,4 @@ ThemeSwitcherGlobal.propTypes = {
   borderRadius: PropTypes.string,
 };
 
-export default ThemeSwitcherGlobal;
+export default ThemeSwitcherGeneral;

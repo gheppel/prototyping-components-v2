@@ -10,6 +10,21 @@ function ThemeProviderHelper(props) {
 
   //   return <ThemeProvider theme={theme}>{props.children}</ThemeProvider>;
   // }
+  // console.log(props);
+  // //console.log(typeof props.children);
+  // //console.log(props.children.length);
+  // let newChildren = props.children;
+  // if (newChildren.length) {
+  //   newChildren.forEach((children) => {
+  //     children.randomProp = "test";
+  //   });
+  // } else {
+  //   //is only one children
+  //   newChildren.randomProp = "test";
+  // }
+  // console.log(newChildren);
+  //console.log(Object.entries(props.children));
+
   return <ThemeProvider theme={theme}>{props.children}</ThemeProvider>;
 }
 
