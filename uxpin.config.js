@@ -5,8 +5,9 @@ module.exports = {
         name: "Theme Switcher",
         include: [
           "src/components/ThemeCustomizer/ThemeCustomizer.js",
-          // "src/components/ThemeSwitcherGeneral/ThemeSwitcherGeneral.js",
-          "src/components/ThemeSwitcherColor/ThemeSwitcherColor.js",
+          "src/components/ThemeSwitcherGeneral/ThemeSwitcherGeneral.js",
+          "src/components/Card/Card.js",
+          //"src/components/ThemeSwitcherColor/ThemeSwitcherColor.js",
           // "src/components/ThemeSwitcherFont/ThemeSwitcherFont.js",
         ],
       },
@@ -62,7 +63,7 @@ module.exports = {
       {
         name: "Card",
         include: [
-          "src/components/Card/Card.js",
+          // "src/components/Card/Card.js",
           "src/components/CardActions/CardActions.js",
           "src/components/CardActionArea/CardActionArea.js",
           "src/components/CardContent/CardContent.js",

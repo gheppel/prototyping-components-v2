@@ -17,7 +17,7 @@ function ThemeSwitcherGeneral(props) {
     </ThemeProviderHelper>
   );
 }
-console.log(themeProfiles);
+// console.log(themeProfiles);
 const themes = themeProfiles;
 ThemeSwitcherGeneral.propTypes = {
   /**
@@ -30,7 +30,7 @@ ThemeSwitcherGeneral.propTypes = {
    * The color theme. Overrides any theme properties in parents if specified
    * @uxpinpropname theme
    */
-  themeProfile: PropTypes.oneOf(themes),
+  themeProfile: PropTypes.oneOf(["light", "dark", "hacker"]),
 
   /**
    * Disables the ripple effect.

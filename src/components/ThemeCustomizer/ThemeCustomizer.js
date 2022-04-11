@@ -1,23 +1,26 @@
 import React from "react";
 import PropTypes from "prop-types";
-import ThemeProviderHelper from "../../theming/utils/ThemeProviderHelper";
-import { themeProfiles } from "../../theming/utils/themeCustomization";
-import { useTheme } from "@mui/material/styles";
 import { ThemeContext } from "../UXPinWrapper/UXPinWrapper";
+import { mergeThemes } from "../../theming/utils/mergeThemes";
 
 function ThemeCustomizer(props) {
-  console.log("ThemeSwitcherGlobal props: ", props);
+  const [themeOptions, setThemeOptions] = React.useContext(ThemeContext);
+  console.log("ThemeCustomizer props: ", props);
+  console.log(themeOptions);
+  React.useEffect(() => {
+    if (themeOptions.themeCustomizerProps !== props) {
+      setThemeOptions((oldTheme) => {
+        let options = { ...props };
+        // console.log("old theme:", oldTheme.theme);
+        options.currentTheme = oldTheme.theme;
+        // console.log("new props: ", options);
+        // console.log("updated the theme");
+        return { theme: mergeThemes(options), themeCustomizerProps: props };
+      });
+    }
+  });
 
-  const currentTheme = useTheme();
-  return (
-    <ThemeContext.Consumer>
-      {(theme, updateTheme) => {
-        console.log(theme);
-        console.log(updateTheme);
-        updateTheme(props);
-      }}
-    </ThemeContext.Consumer>
-  );
+  return <div>{/* <Button>Change props in the props panel!</Button> */}</div>;
 }
 
 ThemeCustomizer.propTypes = {
