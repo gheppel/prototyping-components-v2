@@ -12,7 +12,15 @@ function ThemeSwitcherFont(props) {
       currentTheme={currentTheme}
       calledFrom="ThemeSwitcherFont"
     >
-      {props.children}
+      {!props.children ? (
+        <span>
+          <center>
+            <p>Drag components into this wrapper</p>
+          </center>
+        </span>
+      ) : (
+        props.children
+      )}
     </ThemeProviderHelper>
   );
 }

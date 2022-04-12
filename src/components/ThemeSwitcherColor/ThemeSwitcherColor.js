@@ -13,7 +13,15 @@ function ThemeSwitcherColor(props) {
       currentTheme={currentTheme}
       calledFrom="ThemeSwitcherColor"
     >
-      {props.children}
+      {!props.children ? (
+        <span>
+          <center>
+            <p>Drag components into this wrapper</p>
+          </center>
+        </span>
+      ) : (
+        props.children
+      )}
     </ThemeProviderHelper>
   );
 }

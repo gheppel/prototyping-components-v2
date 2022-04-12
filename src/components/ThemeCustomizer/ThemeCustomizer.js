@@ -40,7 +40,7 @@ function ThemeCustomizer(props) {
   return (
     <div>
       <h1>Global Theme Customizer</h1>
-      <p>Change theme properties in the Properties Panel</p>
+      <p>Should change global theme props</p>
       <div style={{ marginTop: "2em" }}>{props.children}</div>
     </div>
   );

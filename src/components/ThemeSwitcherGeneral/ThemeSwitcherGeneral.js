@@ -13,7 +13,15 @@ function ThemeSwitcherGeneral(props) {
       currentTheme={currentTheme}
       calledFrom="ThemeSwitcherGlobal"
     >
-      {props.children}
+      {!props.children ? (
+        <span>
+          <center>
+            <p>Drag components into this wrapper</p>
+          </center>
+        </span>
+      ) : (
+        props.children
+      )}
     </ThemeProviderHelper>
   );
 }
