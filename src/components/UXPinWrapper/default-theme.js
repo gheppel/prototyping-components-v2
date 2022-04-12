@@ -17,6 +17,7 @@ const defaultTheme = {
       contrastText: "#ffffff",
     },
   },
+  spacing: [0, 6, 16, 40, 67, 77],
 };
 
 export default defaultTheme;

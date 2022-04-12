@@ -2,12 +2,7 @@
 import React from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import defaultTheme from "./default-theme";
-// import ThemeProviderHelper from "../../theming/utils/ThemeProviderHelper";
-import { mergeThemes } from "../../theming/utils/mergeThemes";
-
-// export default function UXPinWrapper({ children }) {
-//   return <ThemeProvider theme={theme}>{children}</ThemeProvider>;
-// }
+import ThemeProviderHelper from "../../theming/utils/ThemeProviderHelper";
 
 export const ThemeContext = React.createContext({});
 
@@ -18,15 +13,15 @@ export default function UXPinWrapper(props) {
     themeCustomizerProps: {},
   });
   console.log("theme im Wrapper: ", themeOptions.theme);
+  console.log("wrapper props: ", props);
   // console.log(theme);
   // console.log(completeDefaultTheme);
 
   return (
     <ThemeContext.Provider value={[themeOptions, setThemeOptions]}>
-      {/* <ThemeProviderHelper calledFromWrapper={true}>
+      <ThemeProviderHelper currentTheme={themeOptions.theme}>
         {props.children}
-      </ThemeProviderHelper> */}
-      <ThemeProvider theme={themeOptions.theme}>{props.children}</ThemeProvider>
+      </ThemeProviderHelper>
     </ThemeContext.Provider>
   );
 }

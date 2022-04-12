@@ -11,6 +11,7 @@ function ThemeProviderHelper(props) {
   //   );
   // } else {
   let theme = mergeThemes(props);
+  console.log("Theme in ThemeProviderHelper: ", theme);
   // if (props.themeProfile !== undefined) {
   //   console.log("local theme detected");
   //   theme = mergeThemes(props);

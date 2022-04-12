@@ -38,6 +38,9 @@ function mergeThemes(props) {
     customizeColor();
     customizeFonts();
 
+    //test
+    //currentTheme.spacing = [0, 4, 8, 16, 32, 64];
+
     //general properties
     function customizeGeneralProps() {
       if (props.disableRipple) {

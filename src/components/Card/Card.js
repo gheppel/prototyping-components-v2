@@ -8,6 +8,7 @@ import { useTheme } from "@mui/material/styles";
  */
 function Card(props) {
   //console.log("Card theme:", useTheme());
+  let theme = useTheme();
   return <CardM {...props}>{props.children}</CardM>;
 }
 

@@ -48,6 +48,7 @@ function App() {
                   ariaLabel="add"
                   title="Design Insights"
                   subheader="December 6, 2021"
+                  padding={5}
                 />
                 <CardMedia
                   uxpId="Card-Media-1"
@@ -88,7 +89,7 @@ function App() {
                 mode="light"
                 text_primary=""
               >
-                <ThemeSwitcherFont fontSize="" h4_letterSpacing="2em">
+                <ThemeSwitcherFont fontSize="" h4_letterSpacing="">
                   <Button variant="contained" size="large">
                     Primähhhhhhhhrböttän
                   </Button>
