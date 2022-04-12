@@ -4,12 +4,10 @@ module.exports = {
       {
         name: "Theme Switcher",
         include: [
-          //"src/components/ThemeCustomizer/ThemeCustomizer.js",
+          "src/components/ThemeCustomizer/ThemeCustomizer.js",
           "src/components/ThemeSwitcherGeneral/ThemeSwitcherGeneral.js",
-          "src/components/Card/Card.js",
-          "src/components/Box/Box.js",
-          //"src/components/ThemeSwitcherColor/ThemeSwitcherColor.js",
-          // "src/components/ThemeSwitcherFont/ThemeSwitcherFont.js",
+          "src/components/ThemeSwitcherColor/ThemeSwitcherColor.js",
+          "src/components/ThemeSwitcherFont/ThemeSwitcherFont.js",
         ],
       },
       {
@@ -64,7 +62,7 @@ module.exports = {
       {
         name: "Card",
         include: [
-          // "src/components/Card/Card.js",
+          "src/components/Card/Card.js",
           "src/components/CardActions/CardActions.js",
           "src/components/CardActionArea/CardActionArea.js",
           "src/components/CardContent/CardContent.js",
@@ -170,7 +168,7 @@ module.exports = {
       {
         name: "Layout",
         include: [
-          //"src/components/Box/Box.js",
+          "src/components/Box/Box.js",
           "src/components/Container/Container.js",
           "src/components/Grid/Grid.js",
           "src/components/ImageList/ImageList.js",
