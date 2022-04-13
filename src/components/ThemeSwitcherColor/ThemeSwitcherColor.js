@@ -27,6 +27,12 @@ function ThemeSwitcherColor(props) {
 }
 ThemeSwitcherColor.propTypes = {
   /**
+   * The label of the button.
+   * @uxpinpropname Label
+   * */
+  children: PropTypes.node,
+
+  /**
    * The color theme. Overrides any theme properties in parents if specified
    * @uxpinpropname theme
    */

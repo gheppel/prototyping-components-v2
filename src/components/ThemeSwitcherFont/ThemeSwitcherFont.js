@@ -26,6 +26,12 @@ function ThemeSwitcherFont(props) {
 }
 ThemeSwitcherFont.propTypes = {
   /**
+   * The label of the button.
+   * @uxpinpropname Label
+   * */
+  children: PropTypes.node,
+
+  /**
    * Changes the font family for all h1 elements
    * @uxpinpropname h1 font family
    */
