@@ -15,35 +15,36 @@ export const parameters = {
 };
 
 //configure theme chooser in toolbar
-// const themeNames = () => {
-//   const names = [];
-//   themes.themes.forEach((theme) => {
-//     names.push(theme.name);
-//   });
-//   return names;
-// };
-// export const globalTypes = {
-//   muiTheme: {
-//     name: "MUI Theme",
-//     description: "Globales Theme für alle Komponenten",
-//     defaultValue: themes.default.name,
-//     toolbar: {
-//       icon: "circlehollow",
-//       items: themeNames(),
-//       showName: true,
-//     },
-//   },
-// };
+const themeNames = () => {
+  const names = [themes.default.name];
+  themes.themes.forEach((theme) => {
+    names.push(theme.name);
+  });
+  return names;
+};
+export const globalTypes = {
+  muiTheme: {
+    name: "MUI Theme",
+    description: "Globales Theme für alle Komponenten",
+    defaultValue: themes.default.name,
+    toolbar: {
+      icon: "circlehollow",
+      items: themeNames(),
+      showName: true,
+    },
+  },
+};
 
 //obtain the chosen theme
 const withThemeProvider = (Story, context) => {
-  //let theme = mergeThemes(context.globals.muiTheme);
-
+  let theme = mergeThemes(context.globals.muiTheme);
   //console.log(context.globals.muiTheme);
 
   return (
     <div style={{ margin: "2em" }}>
-      <Story {...context} />
+      <ThemeProvider theme={theme}>
+        <Story {...context} />
+      </ThemeProvider>
     </div>
   );
 };
