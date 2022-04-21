@@ -1,38 +1,62 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { createTheme } from "@mui/material/styles";
 import { ThemeContext } from "../UXPinWrapper/UXPinWrapper";
 import { mergeThemes } from "../../theming/utils/mergeThemes";
 
+const addFont = (link, index) => {
+  let newFontLink = document.createElement("link");
+  newFontLink.href = link;
+  newFontLink.rel = "stylesheet";
+  newFontLink.id = "muiCCustomFont" + index;
+  document.head.appendChild(newFontLink);
+  //console.log("added: ", newFontLink);
+};
+
 function ThemeCustomizer(props) {
   const [themeOptions, setThemeOptions] = React.useContext(ThemeContext);
-  console.log("ThemeCustomizer props: ", props);
-  console.log("themeOptions: ", themeOptions);
+  //const currentTheme = useTheme();
+  // console.log("ThemeCustomizer props: ", props);
+  // console.log("themeOptions: ", themeOptions);
+
+  if (props.customFonts && props.customFonts !== "") {
+    props.customFonts.split("|").forEach((font, index) => {
+      if (document.querySelectorAll("link[href='" + font + "']").length === 0) {
+        addFont(font, index);
+      }
+    });
+  }
+  if (props.deleteCustomFonts === true) {
+    document
+      .querySelectorAll("link[id*='muiCCustomFont']")
+      .forEach((font) => font.remove());
+  }
   React.useEffect(() => {
     if (themeOptions.themeCustomizerProps !== props) {
       setThemeOptions((oldTheme) => {
         let options = { ...props };
 
         options.currentTheme = oldTheme.theme;
-        console.log("");
+        // console.log("");
         if (Object.keys(themeOptions.themeCustomizerProps).length === 0) {
           console.log("first load");
         } else {
           console.log("global theme change requested");
         }
 
-        let newTheme = mergeThemes(options);
+        //how to do a reset?
 
-        if (oldTheme.theme === newTheme) {
-          console.log("themes are the same - no change");
-        } else {
-          console.log("for old theme see above in themeOptions");
-          console.log("new theme: ", newTheme);
+        let newTheme;
+        //if there is a theme object given, it will be the basis for any customizations
+        if (props.completeThemeObject && props.completeThemeObject !== "") {
+          options.currentTheme = createTheme({ ...props.completeThemeObject });
         }
-        //console.log("new props: ", options);
+        newTheme = mergeThemes(options);
 
-        console.log("updated the theme");
-        console.log("");
-        return { theme: newTheme, themeCustomizerProps: props };
+        return {
+          theme: newTheme,
+          themeCustomizerProps: props,
+        };
       });
     }
   });
@@ -60,6 +84,17 @@ ThemeCustomizer.propTypes = {
   themeProfile: PropTypes.oneOf(["light", "dark", "hacker"]),
 
   /**
+   * Adds given font links (e.g., Google webfont links) to the html head. Separate multiple links with a pipe ("|")
+   * @uxpincontroltype textfield(3)
+   */
+  customFonts: PropTypes.string,
+
+  /**
+   * Deletes all custom font links (e.g., Google webfont links) from the html head.
+   */
+  deleteCustomFonts: PropTypes.bool,
+
+  /**
    * Disables the ripple effect.
    */
   disableRipple: PropTypes.bool,
@@ -78,6 +113,11 @@ ThemeCustomizer.propTypes = {
    * Changes the global border radius.
    */
   borderRadius: PropTypes.string,
+
+  /**
+   * Add a theme object here, if you have one already. Missing properties will be calculated automatically. Works only when the default theme is selected
+   */
+  themeObject: PropTypes.object,
 };
 
 export default ThemeCustomizer;
