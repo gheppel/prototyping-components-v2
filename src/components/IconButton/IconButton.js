@@ -9,7 +9,7 @@ import { ThemeContext } from "../UXPinWrapper/UXPinWrapper";
 /**
  * @uxpindocurl https://mui.com/api/icon-button/#main-content
  */
-let colors = [];
+let colors = ["primary", "secondary", "success", "error", "info", "warning"];
 function IconButton(props) {
   // const [themeOptions, setThemeOptions] = React.useContext(ThemeContext);
   // console.log(themeOptions.theme);
