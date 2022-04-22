@@ -32,34 +32,34 @@ function ThemeCustomizer(props) {
       .forEach((font) => font.remove());
   }
   React.useEffect(() => {
-    if (themeOptions.themeCustomizerProps !== props) {
-      setThemeOptions((oldTheme) => {
-        let options = { ...props };
+    // if (themeOptions.themeCustomizerProps !== props) {
+    setThemeOptions((oldTheme) => {
+      let options = { ...props };
 
-        options.currentTheme = oldTheme.theme;
-        // console.log("");
-        if (Object.keys(themeOptions.themeCustomizerProps).length === 0) {
-          console.log("first load");
-        } else {
-          console.log("global theme change requested");
-        }
+      options.currentTheme = oldTheme.theme;
+      // console.log("");
+      // if (Object.keys(themeOptions.themeCustomizerProps).length === 0) {
+      //   console.log("first load");
+      // } else {
+      //   console.log("global theme change requested");
+      // }
 
-        //how to do a reset?
+      //how to do a reset?
 
-        let newTheme;
-        //if there is a theme object given, it will be the basis for any customizations
-        if (props.completeThemeObject && props.completeThemeObject !== "") {
-          options.currentTheme = createTheme({ ...props.completeThemeObject });
-        }
-        newTheme = mergeThemes(options);
+      let newTheme;
+      //if there is a theme object given, it will be the basis for any customizations
+      if (props.completeThemeObject && props.completeThemeObject !== "") {
+        options.currentTheme = createTheme({ ...props.completeThemeObject });
+      }
+      newTheme = mergeThemes(options);
 
-        return {
-          theme: newTheme,
-          themeCustomizerProps: props,
-        };
-      });
-    }
-  });
+      return {
+        theme: newTheme,
+        // themeCustomizerProps: props,
+      };
+    });
+    // }
+  }, [props, setThemeOptions, themeOptions.themeCustomizerProps]); //only re-run if any of these change
 
   return (
     <div>

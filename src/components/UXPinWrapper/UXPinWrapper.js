@@ -27,23 +27,23 @@ const setThemeOptions = (callback) => {
   listeners.forEach((listener) => {
     listener(themeOptions);
   });
-}
+};
 
 export default function UXPinWrapper(props) {
-  const [theme, setTheme ] = React.useState(themeOptions);
-  console.log("theme im Wrapper: ", themeOptions.theme);
-  console.log("wrapper props: ", props);
+  const [theme, setTheme] = React.useState(themeOptions);
+  // console.log("theme im Wrapper: ", themeOptions.theme);
+  // console.log("wrapper props: ", props);
   // console.log(theme);
   // console.log(completeDefaultTheme);
 
   React.useEffect(() => {
     const onThemeChange = (newTheme) => {
       setTheme(newTheme);
-    }
-
+    };
+    console.log(theme);
     addListener(onThemeChange);
     return () => removeListener(onThemeChange);
-  })
+  });
 
   return (
     <ThemeContext.Provider value={[theme, setThemeOptions]}>

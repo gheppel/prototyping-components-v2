@@ -31,6 +31,7 @@ function App() {
         <div style={{ margin: "2em" }}>
           <UXPinWrapper>
             <ThemeCustomizer themeProfile="" />
+
             <ThemeSwitcherGeneral
               themeProfile=""
               disableRipple={false}
@@ -133,7 +134,7 @@ function App() {
                       </CardContent>
                     </CardActionArea>
                     <CardActions uxpId="Card-Action-1">
-                      <Button uxpId="Button-1" size="small" color="primary">
+                      <Button uxpId="Button-1" size="small" color="accent4">
                         Share
                       </Button>
                     </CardActions>

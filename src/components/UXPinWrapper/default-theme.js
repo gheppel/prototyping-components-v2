@@ -16,6 +16,18 @@ const defaultTheme = {
       dark: "#7b1fa2",
       contrastText: "#ffffff",
     },
+    accent3: {
+      main: "#009b3c",
+      light: "#52cd69",
+      dark: "#006b0d",
+      contrastText: "#fff",
+    },
+    accent4: {
+      main: "#ffc800",
+      light: "#fffb50",
+      dark: "#c79800",
+      contrastText: "#000",
+    },
   },
   spacing: [0, 6, 16, 40, 67, 77],
 };
