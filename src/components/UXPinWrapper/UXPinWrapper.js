@@ -19,7 +19,6 @@ const removeListener = (listener) => {
 
 let themeOptions = {
   theme: completeDefaultTheme,
-  themeCustomizerProps: {},
 };
 
 const setThemeOptions = (callback) => {
@@ -31,10 +30,6 @@ const setThemeOptions = (callback) => {
 
 export default function UXPinWrapper(props) {
   const [theme, setTheme] = React.useState(themeOptions);
-  // console.log("theme im Wrapper: ", themeOptions.theme);
-  // console.log("wrapper props: ", props);
-  // console.log(theme);
-  // console.log(completeDefaultTheme);
 
   React.useEffect(() => {
     const onThemeChange = (newTheme) => {
