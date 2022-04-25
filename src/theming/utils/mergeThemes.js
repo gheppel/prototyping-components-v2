@@ -2,6 +2,7 @@ import { createTheme } from "@mui/material/styles";
 import { themes, customize, vars, token } from "./themeCustomization";
 import { deepmerge } from "@mui/utils";
 import { hexToRgbA } from "./hexToRGBA";
+import createPalette from "@mui/material/styles/createPalette";
 
 function mergeThemes(props) {
   //console.log("mergeThemes called from ", props.calledFrom);
@@ -57,12 +58,13 @@ function mergeThemes(props) {
 
     //color
     function customizeColor() {
-      if (props.mode) {
+      if (props.palette_mode) {
         let modeTheme = createTheme({
           palette: {
-            mode: props.mode,
+            mode: props.palette_mode,
           },
         });
+
         currentTheme.palette.text.primary = modeTheme.palette.text.primary;
         currentTheme.palette.text.secondary = modeTheme.palette.text.secondary;
         currentTheme.palette.text.disabled = modeTheme.palette.text.disabled;
@@ -82,129 +84,94 @@ function mergeThemes(props) {
       }
 
       //main colors
-      if (props.primary) {
-        currentTheme.palette.primary.main = props.primary;
-      }
-      if (props.primary_contrastText) {
-        currentTheme.palette.primary.contrastText = props.primary_contrastText;
-      }
 
-      if (props.secondary) {
-        currentTheme.palette.secondary.main = props.secondary;
-      }
-      if (props.secondary_contrastText) {
-        currentTheme.palette.secondary.contrastText =
-          props.secondary_contrastText;
-      }
+      //!!! needs to generate supporting colors as well !!!
+      //generates supporting colors if just the main color is given
+      //main has to be provided always if the color is supposed to be updated
+      let tempPalette = {};
+      let mainColorProps = [
+        "primary",
+        "secondary",
+        "error",
+        "warning",
+        "info",
+        "success",
+        "text",
+        "background",
+        "action",
+        "common",
+      ];
+      let numberProps = ["Opacity", "Threshold", "tonalOffset"];
 
-      if (props.error) {
-        currentTheme.palette.error.main = props.error;
-      }
-      if (props.error_contrastText) {
-        currentTheme.palette.error.contrastText = props.error_contrastText;
-      }
+      //expects color props to be like: "props.palette_primary" or "props.palette_primary_light"
+      Object.keys(props).forEach((color) => {
+        if (props[color] !== "") {
+          if (color.includes("palette")) {
+            //it's a color
 
-      if (props.warning) {
-        currentTheme.palette.warning.main = props.warning;
-      }
-      if (props.warning_contrastText) {
-        currentTheme.palette.warning.contrastText = props.warning_contrastText;
-      }
+            if (
+              mainColorProps.some((mainColorProp) =>
+                color.includes(mainColorProp)
+              )
+            ) {
+              //it's a main color
 
-      if (props.info) {
-        currentTheme.palette.info.main = props.info;
-      }
-      if (props.info_contrastText) {
-        currentTheme.palette.info.contrastText = props.info_contrastText;
-      }
+              let propStr = color.split("_");
+              tempPalette[propStr[1]] = {};
 
-      if (props.success) {
-        currentTheme.palette.success.main = props.success;
-      }
-      if (props.success_contrastText) {
-        currentTheme.palette.success.contrastText = props.success_contrastText;
-      }
+              if (propStr.length === 2) {
+                //is a main shade
 
-      if (props.secondary) {
-        currentTheme.palette.secondary.main = props.secondary;
-      }
-      if (props.secondary_contrastText) {
-        currentTheme.palette.secondary.contrastText =
-          props.secondary_contrastText;
-      }
+                tempPalette[propStr[1]].main = props[color];
+              } else {
+                //it's light, dark or contrastText or something else
 
-      //other colors
-      if (props.text_primary) {
-        currentTheme.palette.text.primary = props.text_primary;
-      }
-      if (props.text_secondary) {
-        currentTheme.palette.text.secondary = props.text_secondary;
-      }
-      if (props.text_disabled) {
-        currentTheme.palette.text.disabled = props.text_disabled;
-      }
+                if (
+                  numberProps.some((numberProp) => color.includes(numberProp))
+                ) {
+                  //it's a number prop
 
-      if (props.background_paper) {
-        currentTheme.palette.background.paper = props.background_paper;
-      }
-      if (props.background_default) {
-        currentTheme.palette.background.default = props.background_default;
-      }
+                  tempPalette[propStr[1]][propStr[2]] = parseInt(props[color]);
+                } else {
+                  //it's a normal prop
 
-      if (props.action_active) {
-        currentTheme.palette.action.active = props.action_active;
-      }
-      if (props.action_hover) {
-        currentTheme.palette.action.hover = props.action_hover;
-      }
-      if (props.action_hoverOpacity || props.action_hoverOpacity === 0) {
-        currentTheme.palette.action.hoverOpacity = parseInt(
-          props.action_hoverOpacity
-        );
-      }
-      if (props.action_selected) {
-        currentTheme.palette.action.selected = props.action_selected;
-      }
-      if (props.action_selectedOpacity || props.action_selectedOpacity === 0) {
-        currentTheme.palette.action.selectedOpacity = parseInt(
-          props.action_selectedOpacity
-        );
-      }
-      if (props.action_disabled) {
-        currentTheme.palette.action.disabled = props.action_disabled;
-      }
-      if (props.action_disabledOpacity || props.action_disabledOpacity === 0) {
-        currentTheme.palette.action.disabledOpacity = parseInt(
-          props.action_disabledOpacity
-        );
-      }
-      if (props.action_focus) {
-        currentTheme.palette.action.focus = props.action_focus;
-      }
-      if (props.action_focusOpacity || props.action_focusOpacity === 0) {
-        currentTheme.palette.action.focusOpacity = parseInt(
-          props.action_focusOpacity
-        );
-      }
-      if (
-        props.action_activatedOpacity ||
-        props.action_activatedOpacity === 0
-      ) {
-        currentTheme.palette.action.activatedOpacity = parseInt(
-          props.action_activatedOpacity
-        );
-      }
+                  tempPalette[propStr[1]][propStr[2]] = props[color];
+                }
+              }
+            } else {
+              //it's a color without an object
+              let propStr = color.split("_");
 
-      if (props.divider) {
-        currentTheme.palette.divider = props.divider;
-      }
-      if (props.contrastThreshold || props.contrastThreshold === 0) {
-        currentTheme.palette.contrastThreshold = parseInt(
-          props.contrastThreshold
-        );
-      }
-      if (props.tonalOffset || props.tonalOffset === 0) {
-        currentTheme.palette.tonalOffset = parseInt(props.tonalOffset);
+              if (!color.includes("mode")) {
+                //exlude mode
+
+                if (
+                  numberProps.some((numberProp) => color.includes(numberProp))
+                ) {
+                  //it's a number prop
+
+                  tempPalette[propStr[1]] = parseInt(props[color]);
+                } else {
+                  //it's a normal prop
+
+                  tempPalette[propStr[1]] = props[color];
+                }
+              }
+            }
+          }
+        }
+      });
+
+      let createdPalette = createPalette(tempPalette);
+
+      //updates the current theme with the calculated colors
+      Object.keys(tempPalette).forEach((mainColor) => {
+        currentTheme.palette[mainColor] = createdPalette[mainColor];
+      });
+      if (Object.keys(tempPalette).length > 0) {
+        console.log("temp:", tempPalette);
+        console.log("created: ", createdPalette);
+        console.log("resulting theme", currentTheme);
       }
     }
 

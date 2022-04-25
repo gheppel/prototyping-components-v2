@@ -48,12 +48,12 @@ ThemeSwitcherGeneral.propTypes = {
   /**
    * Changes the primary color.
    */
-  primary: PropTypes.string,
+  palette_primary: PropTypes.string,
 
   /**
    * Changes the secondary color.
    */
-  secondary: PropTypes.string,
+  palette_secondary: PropTypes.string,
 
   /**
    * Changes the global border radius.
