@@ -16,18 +16,35 @@ function IconButton(props) {
   // let theme = useTheme();
   // colors = getMainColors(themeOptions.theme);
   // console.log(colors);
+  console.log(
+    "there is an mui icon but no fa icon? ",
+    props.children && (!props.fontawesomeIcon || props.fontawesomeIcon === "")
+  );
   return (
     <IconButtonM {...props}>
-      <Icon fontSize={props.size}>{props.children}</Icon>
+      {props.children &&
+      (!props.fontawesomeIcon || props.fontawesomeIcon === "") ? (
+        <Icon fontSize={props.size}>{props.children}</Icon>
+      ) : null}
+      {props.fontawesomeIcon && props.fontawesomeIcon !== "" ? (
+        <i class={props.fontawesomeIcon} />
+      ) : null}
     </IconButtonM>
+    // <i class={props.fontawesomeIcon}></i>
   );
 }
 IconButton.propTypes = {
   /**
-   * The icon element.
-   * @uxpinpropname  Icon
+   * Pick a Material UI icon
+   * @uxpinpropname  MUI Icon
    */
   children: PropTypes.oneOf(iconVariants),
+
+  /**
+   * Pick a fontawesome 6 icon. Overwrites the MUI Icon. Has to be in a format like "fa-solid fa-mug-saucer"
+   * @uxpinpropname  fa Icon
+   */
+  fontawesomeIcon: PropTypes.string,
 
   /**
    * The size of the button.

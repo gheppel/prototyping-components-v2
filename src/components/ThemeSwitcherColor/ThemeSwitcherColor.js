@@ -1,28 +1,28 @@
 import React from "react";
 import PropTypes from "prop-types";
 import ThemeProviderHelper from "../../theming/utils/ThemeProviderHelper";
+import { ThemeProvider } from "@mui/material/styles";
 import { useTheme } from "@mui/material/styles";
+import { mergeThemes } from "../../theming/utils/mergeThemes";
 import { themeProfiles } from "../../theming/utils/themeCustomization";
+import { Typography } from "@mui/material";
 
 function ThemeSwitcherColor(props) {
-  const currentTheme = useTheme();
-
+  const currentTheme = { ...useTheme() };
+  const theme = mergeThemes({ currentTheme: currentTheme, ...props });
   return (
-    <ThemeProviderHelper
-      {...props}
-      currentTheme={currentTheme}
-      calledFrom="ThemeSwitcherColor"
-    >
+    <ThemeProvider theme={theme}>
       {!props.children ? (
         <span>
           <center>
+            <Typography variant="h6">ThemeSwitcher Color</Typography>
             <p>Drag components into this wrapper</p>
           </center>
         </span>
       ) : (
         props.children
       )}
-    </ThemeProviderHelper>
+    </ThemeProvider>
   );
 }
 ThemeSwitcherColor.propTypes = {

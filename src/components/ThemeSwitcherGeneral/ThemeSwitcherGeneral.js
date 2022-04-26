@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import ThemeProviderHelper from "../../theming/utils/ThemeProviderHelper";
 import { themeProfiles } from "../../theming/utils/themeCustomization";
 import { useTheme } from "@mui/material/styles";
+import { Typography } from "@mui/material";
 function ThemeSwitcherGeneral(props) {
   //console.log("ThemeSwitcher props: ", props);
   // console.log(basicTheme);
@@ -16,6 +17,7 @@ function ThemeSwitcherGeneral(props) {
       {!props.children ? (
         <span>
           <center>
+            <Typography variant="h6">ThemeSwitcher General</Typography>
             <p>Drag components into this wrapper</p>
           </center>
         </span>
@@ -59,6 +61,11 @@ ThemeSwitcherGeneral.propTypes = {
    * Changes the global border radius.
    */
   borderRadius: PropTypes.string,
+
+  /**
+   * Resets the theme to the default theme from /src/components/UXPinWrapper/default-theme.js
+   */
+  resetTheme: PropTypes.bool,
 };
 
 export default ThemeSwitcherGeneral;

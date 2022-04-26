@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import ThemeProviderHelper from "../../theming/utils/ThemeProviderHelper";
 import { useTheme } from "@mui/material/styles";
+import { Typography } from "@mui/material";
 
 function ThemeSwitcherFont(props) {
   const currentTheme = useTheme();
@@ -15,6 +16,7 @@ function ThemeSwitcherFont(props) {
       {!props.children ? (
         <span>
           <center>
+            <Typography variant="h6">ThemeSwitcher Font</Typography>
             <p>Drag components into this wrapper</p>
           </center>
         </span>

@@ -253,8 +253,12 @@ function mergeThemes(props) {
     // console.log(currentTheme);
     return currentTheme;
   }
-
-  if (props.themeProfile !== undefined && props.themeProfile !== "") {
+  if (props.resetTheme && props.resetTheme !== "") {
+    //theme reset
+    const defaultTheme = createTheme(getThemeData());
+    console.log("theme reset");
+    return defaultTheme;
+  } else if (props.themeProfile !== undefined && props.themeProfile !== "") {
     //a specific theme was chosen
 
     //get the chosen theme
