@@ -9,7 +9,7 @@ import ButtonWithAlert from "./ButtonWithAlert";
 import SettingsPanel from "./SettingsPanel";
 import { ThemeProvider } from "@mui/material/styles";
 import LiveViewDummy from "./LiveViewDummy";
-import { createTheme } from "@mui/material";
+import { createTheme } from "@mui/material/styles";
 import ResetButton from "./ResetButton";
 
 export const ThemeGeneratorContext = React.createContext({});
@@ -27,10 +27,14 @@ function ThemeGenerator(props) {
     //   //   return JSON.parse(localTheme);
     //   // } else {
     //   //
-    console.log("first load or storage was cleared, get default theme");
+    // console.log("first load or storage was cleared, get default theme");
     return mergeThemes({ resetTheme: true });
     // }
   });
+  // const [defaultThemes, setDefaultThemes] = React.useState({
+  //   light: createTheme({ palette: { mode: "light" } }),
+  //   dark: createTheme({ palette: { mode: "dark" } }),
+  // });
   // const updateThemeProps = (newThemeProps) => {
   //   //merge new themeProps with old themeProps
   //   setThemeProps((oldThemeProps) => {
@@ -62,16 +66,6 @@ function ThemeGenerator(props) {
       // ####
 
       setTheme((oldTheme) => {
-        if (themeProps.palette_mode) {
-          console.log(
-            "generated theme from theme generator: ",
-            createTheme({
-              palette: {
-                mode: themeProps.palette_mode,
-              },
-            })
-          );
-        }
         let newTheme = mergeThemes(themeProps);
         console.log("old theme was ", oldTheme);
         console.log("new theme should be ", newTheme);

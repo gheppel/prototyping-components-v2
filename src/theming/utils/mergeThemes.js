@@ -3,6 +3,8 @@ import { themes, customize, vars, token } from "./themeCustomization";
 import { deepmerge } from "@mui/utils";
 import { hexToRgbA } from "./hexToRGBA";
 import createPalette from "@mui/material/styles/createPalette";
+import Light from "../themes/light";
+import Dark from "../themes/dark";
 
 function mergeThemes(props) {
   //console.log("mergeThemes called from ", props.calledFrom);
@@ -60,15 +62,9 @@ function mergeThemes(props) {
     function customizeColor() {
       if (props.palette_mode && props.palette_mode !== "") {
         const modes = {
-          light: createTheme(getThemeData()),
-          dark: createTheme(getThemeData("dark")),
+          light: Light,
+          dark: Dark,
         };
-        console.log(
-          "converting styles to mode ",
-          props.palette_mode,
-          " using ",
-          modes[props.palette_mode]
-        );
 
         currentTheme.palette.mode = props.palette_mode;
         currentTheme.palette.text.primary =
