@@ -4,10 +4,11 @@ import { Box } from "@mui/system";
 import { Alert } from "@mui/material";
 import { Collapse } from "@mui/material";
 import { ThemeGeneratorContext } from "./ThemeGenerator";
+import Snackbar from "@mui/material/Snackbar";
 
 import { mergeThemes } from "../../theming/utils/mergeThemes";
 
-function ButtonWithAlert(props) {
+function CopyThemeButton(props) {
   const [open, setOpen] = React.useState(false);
   const [alert, setAlert] = React.useState({
     message: "Theme object copied successfully to the clipboard!",
@@ -50,12 +51,28 @@ function ButtonWithAlert(props) {
         variant={props.buttonVariant}
         onClick={() => {
           copyTheme();
-          setTheme({ currentTheme: theme, palette_primary: "#0f0" });
         }}
       >
         {props.buttonLabel}
       </Button>
-      <Box mx={2}>
+      <Snackbar
+        open={open}
+        autoHideDuration={6000}
+        onClose={() => {
+          setOpen(false);
+        }}
+      >
+        <Alert
+          severity={alert.severity}
+          onClose={() => {
+            setOpen(false);
+          }}
+          sx={{ width: "100%" }}
+        >
+          {alert.message}
+        </Alert>
+      </Snackbar>
+      {/* <Box mx={2}>
         <Collapse in={open}>
           <Alert
             severity={alert.severity}
@@ -66,9 +83,9 @@ function ButtonWithAlert(props) {
             {alert.message}
           </Alert>
         </Collapse>
-      </Box>
+      </Box> */}
     </React.Fragment>
   );
 }
 
-export default ButtonWithAlert;
+export default CopyThemeButton;

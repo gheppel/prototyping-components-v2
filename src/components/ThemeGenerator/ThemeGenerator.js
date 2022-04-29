@@ -5,7 +5,7 @@ import { Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { Paper } from "@mui/material";
 import { Grid } from "@mui/material";
-import ButtonWithAlert from "./ButtonWithAlert";
+import CopyThemeButton from "./ButtonWithAlert";
 import SettingsPanel from "./SettingsPanel";
 import { ThemeProvider } from "@mui/material/styles";
 import LiveViewDummy from "./LiveViewDummy";
@@ -64,13 +64,17 @@ function ThemeGenerator(props) {
       // });
 
       // ####
-
-      setTheme((oldTheme) => {
-        let newTheme = mergeThemes(themeProps);
-        console.log("old theme was ", oldTheme);
-        console.log("new theme should be ", newTheme);
-        return newTheme;
-      });
+      if (themeProps.resetTheme) {
+        //reset theme
+        setTheme(mergeThemes({ resetTheme: true }));
+      } else {
+        setTheme((oldTheme) => {
+          let newTheme = mergeThemes(themeProps);
+          console.log("old theme was ", oldTheme);
+          console.log("new theme should be ", newTheme);
+          return newTheme;
+        });
+      }
     }
   }, [themeProps]);
   React.useEffect(() => {
@@ -94,7 +98,13 @@ function ThemeGenerator(props) {
             elevation={0}
             square={true}
           >
-            <Grid container height="100%" width="100%" flexDirection="column">
+            <Grid
+              container
+              height="100%"
+              width="100%"
+              flexDirection="column"
+              flexWrap="nowrap"
+            >
               {/* Heading */}
               <Grid container padding="15px" alignItems="center">
                 <Grid item mr={4}>
@@ -107,7 +117,7 @@ function ThemeGenerator(props) {
                     MUI Theme Generator
                   </Typography>
                 </Grid>
-                <Grid item flexGrow="1">
+                <Grid item mr={4}>
                   <ResetButton
                     buttonVariant="contained"
                     buttonLabel="reset theme object"
@@ -120,13 +130,19 @@ function ThemeGenerator(props) {
                   display="flex"
                   height="50px"
                 >
-                  <ButtonWithAlert
+                  <CopyThemeButton
                     buttonVariant="contained"
                     buttonLabel="copy theme object"
                   />
                 </Grid>
               </Grid>
-              <Grid container flexGrow="1" flexDirection="row">
+              <Grid
+                container
+                flexGrow="1"
+                flexDirection="row"
+                flexWrap="nowrap"
+                maxHeight="calc(100% - 80px)"
+              >
                 {/* Settingspanel */}
                 <Grid
                   item
@@ -135,6 +151,8 @@ function ThemeGenerator(props) {
                   // pr={1}
                   p={2}
                   sx={{ resize: "horizontal", overflow: "auto" }}
+                  maxWidth="50%"
+                  maxHeight="100%"
                 >
                   <Paper sx={{ height: "100%", width: "100%" }} elevation={2}>
                     <Box
@@ -165,7 +183,15 @@ function ThemeGenerator(props) {
                   </Paper>
                 </Grid>
                 {/* LiveView */}
-                <Grid item flexGrow="1" ml={1} mr={2} mb={2} mt={2}>
+                <Grid
+                  item
+                  flexGrow="1"
+                  ml={1}
+                  mr={2}
+                  mb={2}
+                  mt={2}
+                  maxWidth="50%"
+                >
                   <Paper sx={{ height: "100%", width: "100%" }} elevation={2}>
                     <Box
                       height="100%"

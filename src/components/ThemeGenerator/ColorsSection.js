@@ -15,8 +15,9 @@ function Indicator(props) {
         width: "54px",
         height: "54px",
         backgroundColor: props.theme.palette[props.variant][props.colorVariant],
-        borderRadius: props.theme.shape.borderRadius,
-        border: "1px solid #000",
+        borderRadius: "50%",
+        border: "1px solid",
+        borderColor: props.theme.palette.divider,
       }}
     ></Box>
   );
@@ -32,11 +33,12 @@ function ColorsSection(props) {
       </Grid>
       <Grid item>
         {props.type === "main" ? (
-          <Grid container>
+          <Grid container flexDirection="row">
             <Grid item>
               <Grid container alignItems="flex-start" mr={3}>
                 <Grid item>
                   <BasicTextField
+                    type="color"
                     themeProp={"palette_" + props.variant}
                     label={props.title}
                     placeholder="e.g., #fff"
@@ -45,7 +47,7 @@ function ColorsSection(props) {
                     width="180px"
                   />
                 </Grid>
-                <Grid item pt="8px" ml={2}>
+                <Grid item pt="16px" ml={2}>
                   <Indicator
                     theme={theme}
                     variant={props.variant}
@@ -58,6 +60,7 @@ function ColorsSection(props) {
               <Grid container alignItems="flex-start" mr={3}>
                 <Grid item>
                   <BasicTextField
+                    type="color"
                     themeProp={"palette_" + props.variant + "_light"}
                     label={props.title + "_light"}
                     placeholder="e.g., #fff"
@@ -68,7 +71,7 @@ function ColorsSection(props) {
                     width="180px"
                   />
                 </Grid>
-                <Grid item pt="8px" ml={2}>
+                <Grid item pt="16px" ml={2}>
                   <Indicator
                     theme={theme}
                     variant={props.variant}
@@ -81,6 +84,7 @@ function ColorsSection(props) {
               <Grid container alignItems="flex-start" mr={3}>
                 <Grid item>
                   <BasicTextField
+                    type="color"
                     themeProp={"palette_" + props.variant + "_dark"}
                     label={props.title + "_dark"}
                     placeholder="e.g., #fff"
@@ -91,7 +95,7 @@ function ColorsSection(props) {
                     width="180px"
                   />
                 </Grid>
-                <Grid item pt="8px" ml={2}>
+                <Grid item pt="16px" ml={2}>
                   <Indicator
                     theme={theme}
                     variant={props.variant}
@@ -104,6 +108,7 @@ function ColorsSection(props) {
               <Grid container alignItems="flex-start" mr={3}>
                 <Grid item>
                   <BasicTextField
+                    type="color"
                     themeProp={"palette_" + props.variant + "_contrastText"}
                     label={props.title + "_contrastText"}
                     placeholder="e.g., #fff"
@@ -114,7 +119,7 @@ function ColorsSection(props) {
                     width="180px"
                   />
                 </Grid>
-                <Grid item pt="8px" ml={2}>
+                <Grid item pt="16px" ml={2}>
                   <Indicator
                     theme={theme}
                     variant={props.variant}

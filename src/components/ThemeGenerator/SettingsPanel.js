@@ -8,13 +8,19 @@ import { MenuItem } from "@mui/material";
 
 function SettingsPanel(props) {
   return (
-    <Grid container display="flex" flexDirection="column" justifyContent="left">
+    <Grid
+      container
+      display="flex"
+      flexDirection="column"
+      justifyContent="left"
+      sx={{ maxWidth: "100%" }}
+    >
       <Grid item>
         <Typography variant="h5" p="10px" align="left">
           Customization
         </Typography>
       </Grid>
-      <Grid>
+      <Grid item sx={{ maxWidth: "100%" }}>
         <TabsNavigation></TabsNavigation>
       </Grid>
     </Grid>

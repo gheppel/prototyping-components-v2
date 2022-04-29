@@ -4,6 +4,9 @@ import { Box } from "@mui/system";
 import { Alert } from "@mui/material";
 import { Collapse } from "@mui/material";
 import { ThemeGeneratorContext } from "./ThemeGenerator";
+import { Grid } from "@mui/material";
+import Snackbar from "@mui/material/Snackbar";
+import defaultTheme from "../UXPinWrapper/default-theme";
 
 import { mergeThemes } from "../../theming/utils/mergeThemes";
 
@@ -49,7 +52,8 @@ function ButtonWithAlert(props) {
   // let message = "Theme object was copied to the clipboard!";
   // let severity = "success";
   return (
-    <React.Fragment>
+    // <Grid container display="flex" flexDirection="row">
+    <Grid item>
       <Button
         variant={props.buttonVariant}
         color="warning"
@@ -59,19 +63,25 @@ function ButtonWithAlert(props) {
       >
         {props.buttonLabel}
       </Button>
-      <Box mx={2}>
-        <Collapse in={open}>
-          <Alert
-            severity={alert.severity}
-            onClose={() => {
-              setOpen(false);
-            }}
-          >
-            {alert.message}
-          </Alert>
-        </Collapse>
-      </Box>
-    </React.Fragment>
+      <Snackbar
+        open={open}
+        autoHideDuration={6000}
+        onClose={() => {
+          setOpen(false);
+        }}
+      >
+        <Alert
+          severity={alert.severity}
+          onClose={() => {
+            setOpen(false);
+          }}
+          sx={{ width: "100%" }}
+        >
+          {alert.message}
+        </Alert>
+      </Snackbar>
+    </Grid>
+    // </Grid>
   );
 }
 

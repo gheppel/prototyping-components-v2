@@ -15,10 +15,11 @@ function Settings(props) {
       <Grid item>
         <BasicSelect
           label="Theme"
-          defaultValue=""
+          defaultValue="default"
           helperText="Start from an existing theme"
           themeProp="themeProfile"
         >
+          <MenuItem value={"default"}>default</MenuItem>
           <MenuItem value={"light"}>light</MenuItem>
           <MenuItem value={"dark"}>dark</MenuItem>
           <MenuItem value={"hacker"}>hacker</MenuItem>

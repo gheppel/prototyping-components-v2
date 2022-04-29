@@ -15,6 +15,11 @@ function Colors(props) {
     <Grid container>
       <Grid item></Grid>
       <ColorsSection title="Primary" type="main" variant="primary" />
+      <ColorsSection title="Secondary" type="main" variant="secondary" />
+      <ColorsSection title="Success" type="main" variant="success" />
+      <ColorsSection title="Error" type="main" variant="error" />
+      <ColorsSection title="Warning" type="main" variant="warning" />
+      <ColorsSection title="Info" type="main" variant="info" />
     </Grid>
   );
 }

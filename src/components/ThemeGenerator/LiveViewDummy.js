@@ -10,6 +10,7 @@ import Avatar from "../Avatar/Avatar";
 import Icon from "../Icon/Icon";
 import IconButton from "../IconButton/IconButton";
 import Typography from "../Typography/Typography";
+import { Alert } from "@mui/material";
 
 export default function LiveViewDummy() {
   return (
@@ -58,6 +59,10 @@ export default function LiveViewDummy() {
         </CardActions>
       </Card>
       <Button variant="contained">Test Button</Button>
+      <Alert severity="error">This is an error alert — check it out!</Alert>
+      <Alert severity="warning">This is a warning alert — check it out!</Alert>
+      <Alert severity="info">This is an info alert — check it out!</Alert>
+      <Alert severity="success">This is a success alert — check it out!</Alert>
     </React.Fragment>
   );
 }
