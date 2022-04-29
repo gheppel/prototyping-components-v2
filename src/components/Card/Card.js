@@ -1,14 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
 import CardM from "@mui/material/Card";
-import { useTheme } from "@mui/material/styles";
+import { useTheme, ThemeProvider } from "@mui/material/styles";
 
 /**
  * @uxpindocurl https://mui.com/api/card/
  */
 function Card(props) {
-  console.log("Card theme:", useTheme());
-  let theme = useTheme();
   return <CardM {...props}>{props.children}</CardM>;
 }
 

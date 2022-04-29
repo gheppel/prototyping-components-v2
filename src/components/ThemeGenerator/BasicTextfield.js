@@ -14,13 +14,7 @@ function BasicTextField(props) {
     console.log(event.target.value);
     setValue(event.target.value);
     setThemeProps((oldProps) => {
-      return {
-        palette: {
-          primary: {
-            main: event.target.value,
-          },
-        },
-      };
+      return { ...oldProps, [props.themeProp]: event.target.value };
     });
   }
   return (

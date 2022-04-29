@@ -52,36 +52,47 @@ function mergeThemes(props) {
         };
       }
       if (props.borderRadius) {
-        console.log(currentTheme);
         currentTheme.shape = { borderRadius: parseInt(props.borderRadius) };
       }
     }
 
     //color
     function customizeColor() {
-      if (props.palette_mode) {
-        let modeTheme = createTheme({
-          palette: {
-            mode: props.palette_mode,
-          },
-        });
+      if (props.palette_mode && props.palette_mode !== "") {
+        const modes = {
+          light: createTheme(getThemeData()),
+          dark: createTheme(getThemeData("dark")),
+        };
+        console.log(
+          "converting styles to mode ",
+          props.palette_mode,
+          " using ",
+          modes[props.palette_mode]
+        );
 
-        currentTheme.palette.text.primary = modeTheme.palette.text.primary;
-        currentTheme.palette.text.secondary = modeTheme.palette.text.secondary;
-        currentTheme.palette.text.disabled = modeTheme.palette.text.disabled;
-        currentTheme.palette.action.active = modeTheme.palette.action.active;
-        currentTheme.palette.action.hover = modeTheme.palette.action.hover;
+        currentTheme.palette.mode = props.palette_mode;
+        currentTheme.palette.text.primary =
+          modes[props.palette_mode].palette.text.primary;
+        currentTheme.palette.text.secondary =
+          modes[props.palette_mode].palette.text.secondary;
+        currentTheme.palette.text.disabled =
+          modes[props.palette_mode].palette.text.disabled;
+        currentTheme.palette.action.active =
+          modes[props.palette_mode].palette.action.active;
+        currentTheme.palette.action.hover =
+          modes[props.palette_mode].palette.action.hover;
         currentTheme.palette.action.selected =
-          modeTheme.palette.action.selected;
+          modes[props.palette_mode].palette.action.selected;
         currentTheme.palette.action.disabled =
-          modeTheme.palette.action.disabled;
+          modes[props.palette_mode].palette.action.disabled;
         currentTheme.palette.disabledBackground =
-          modeTheme.palette.disabledBackground;
+          modes[props.palette_mode].palette.disabledBackground;
         currentTheme.palette.background.default =
-          modeTheme.palette.background.default;
+          modes[props.palette_mode].palette.background.default;
         currentTheme.palette.background.paper =
-          modeTheme.palette.background.paper;
-        currentTheme.palette.divider = modeTheme.palette.divider;
+          modes[props.palette_mode].palette.background.paper;
+        currentTheme.palette.divider =
+          modes[props.palette_mode].palette.divider;
       }
 
       //main colors

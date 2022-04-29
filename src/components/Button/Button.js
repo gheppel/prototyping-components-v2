@@ -12,24 +12,15 @@ import { useTheme } from "@mui/material/styles";
  */
 function Button(props) {
   const { uxpinRef, ...other } = props;
-  const currentTheme = useTheme();
   return (
-    <ThemeProviderHelper
-      {...props}
-      calledFrom="Button"
-      currentTheme={currentTheme}
+    <ButtonM
+      {...other}
+      ref={uxpinRef}
+      startIcon={props.startIcon && <Icon>{props.startIcon}</Icon>}
+      endIcon={props.endIcon && <Icon>{props.endIcon}</Icon>}
     >
-      <ButtonM
-        {...other}
-        ref={uxpinRef}
-        startIcon={props.startIcon && <Icon>{props.startIcon}</Icon>}
-        endIcon={props.endIcon && <Icon>{props.endIcon}</Icon>}
-
-        //sx={{ backgroundColor: theme.palette.primary.main }}
-      >
-        {props.children}
-      </ButtonM>
-    </ThemeProviderHelper>
+      {props.children}
+    </ButtonM>
   );
 }
 
