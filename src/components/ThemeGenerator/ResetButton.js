@@ -10,17 +10,19 @@ import { mergeThemes } from "../../theming/utils/mergeThemes";
 function ButtonWithAlert(props) {
   const [open, setOpen] = React.useState(false);
   const [alert, setAlert] = React.useState({
-    message: "Theme object copied successfully to the clipboard!",
+    message: "Theme reset, you can start fresh!",
     severity: "success",
   });
-  const [theme, setTheme] = React.useContext(ThemeGeneratorContext);
-  const copyTheme = () => {
+  const [themeProps, setThemeProps, theme, setTheme] = React.useContext(
+    ThemeGeneratorContext
+  );
+  const resetTheme = () => {
     const openAlert = (success) => {
       setOpen(false);
       setAlert(
         success
           ? {
-              message: "Theme object copied successfully to the clipboard!",
+              message: "Theme reset, you can start fresh!",
               severity: "success",
             }
           : {
@@ -32,15 +34,17 @@ function ButtonWithAlert(props) {
         setOpen(true);
       }, 150);
     };
-    console.log(theme);
-    navigator.clipboard.writeText(JSON.stringify(theme)).then(
-      () => {
-        openAlert(true);
-      },
-      () => {
-        openAlert(false);
-      }
-    );
+
+    setThemeProps({ resetTheme: true });
+    openAlert(true);
+    // .then(
+    //   () => {
+    //     openAlert(true);
+    //   },
+    //   () => {
+    //     openAlert(false);
+    //   }
+    // );
   };
   // let message = "Theme object was copied to the clipboard!";
   // let severity = "success";
@@ -48,9 +52,9 @@ function ButtonWithAlert(props) {
     <React.Fragment>
       <Button
         variant={props.buttonVariant}
+        color="warning"
         onClick={() => {
-          copyTheme();
-          setTheme({ currentTheme: theme, palette_primary: "#0f0" });
+          resetTheme();
         }}
       >
         {props.buttonLabel}

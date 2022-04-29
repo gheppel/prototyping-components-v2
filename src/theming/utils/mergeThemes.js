@@ -52,6 +52,7 @@ function mergeThemes(props) {
         };
       }
       if (props.borderRadius) {
+        console.log(currentTheme);
         currentTheme.shape = { borderRadius: parseInt(props.borderRadius) };
       }
     }
@@ -169,9 +170,9 @@ function mergeThemes(props) {
         currentTheme.palette[mainColor] = createdPalette[mainColor];
       });
       if (Object.keys(tempPalette).length > 0) {
-        console.log("temp:", tempPalette);
-        console.log("created: ", createdPalette);
-        console.log("resulting theme", currentTheme);
+        // console.log("temp:", tempPalette);
+        // console.log("created: ", createdPalette);
+        // console.log("resulting theme", currentTheme);
       }
     }
 
@@ -256,7 +257,7 @@ function mergeThemes(props) {
   if (props.resetTheme && props.resetTheme !== "") {
     //theme reset
     const defaultTheme = createTheme(getThemeData());
-    console.log("theme reset");
+    // console.log("theme reset");
     return defaultTheme;
   } else if (props.themeProfile !== undefined && props.themeProfile !== "") {
     //a specific theme was chosen
@@ -265,13 +266,14 @@ function mergeThemes(props) {
     const chosenTheme = createTheme(getThemeData(props.themeProfile));
 
     //merge any custom properties into it
+    console.log("chosenTheme", chosenTheme);
     const customizedTheme = customizeTheme(chosenTheme);
     return customizedTheme;
   } else {
     //no specific theme was chosen
 
-    //merge any custom properties into the current theme
-    const customizedTheme = customizeTheme(props.currentTheme);
+    //merge any custom properties with the default theme
+    const customizedTheme = customizeTheme(createTheme(getThemeData()));
     return customizedTheme;
   }
 }

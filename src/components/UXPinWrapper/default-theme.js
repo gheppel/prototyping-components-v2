@@ -29,7 +29,10 @@ const defaultTheme = {
       contrastText: "#000",
     },
   },
-  spacing: [0, 6, 16, 40, 67, 77],
+  spacing: [0, 4, 8, 16, 32, 64],
+  shape: {
+    borderRadius: 0,
+  },
 };
 
 export default defaultTheme;

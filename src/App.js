@@ -35,7 +35,10 @@ function App() {
   return (
     <div className="App">
       <UXPinWrapper>
-        <ThemeGenerator />
+        <Box sx={{ height: "100vh", width: "100vw" }}>
+          {" "}
+          <ThemeGenerator />
+        </Box>
       </UXPinWrapper>
     </div>
   );

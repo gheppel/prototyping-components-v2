@@ -16,10 +16,10 @@ function IconButton(props) {
   // let theme = useTheme();
   // colors = getMainColors(themeOptions.theme);
   // console.log(colors);
-  console.log(
-    "there is an mui icon but no fa icon? ",
-    props.children && (!props.fontawesomeIcon || props.fontawesomeIcon === "")
-  );
+  // console.log(
+  //   "there is an mui icon but no fa icon? ",
+  //   props.children && (!props.fontawesomeIcon || props.fontawesomeIcon === "")
+  // );
   return (
     <IconButtonM {...props}>
       {props.children &&

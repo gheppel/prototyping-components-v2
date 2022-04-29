@@ -4,51 +4,50 @@ import { createTheme } from "@mui/material/styles";
 import { ThemeContext } from "../UXPinWrapper/UXPinWrapper";
 import { mergeThemes } from "../../theming/utils/mergeThemes";
 
-// const addFont = (link, index) => {
-//   let newFontLink = document.createElement("link");
-//   newFontLink.href = link;
-//   newFontLink.rel = "stylesheet";
-//   newFontLink.id = "muiCCustomFont" + index;
-//   document.head.appendChild(newFontLink);
-//   //console.log("added: ", newFontLink);
-// };
+const addFont = (link, index) => {
+  let newFontLink = document.createElement("link");
+  newFontLink.href = link;
+  newFontLink.rel = "stylesheet";
+  newFontLink.id = "muiCCustomFont" + index;
+  document.head.appendChild(newFontLink);
+  //console.log("added: ", newFontLink);
+};
 
 function ThemeCustomizer(props) {
-  // const [themeOptions, setThemeOptions] = React.useContext(ThemeContext);
+  const [themeOptions, setThemeOptions] = React.useContext(ThemeContext);
 
-  // if (props.customFonts && props.customFonts !== "") {
-  //   props.customFonts.split("|").forEach((font, index) => {
-  //     if (document.querySelectorAll("link[href='" + font + "']").length === 0) {
-  //       addFont(font, index);
-  //     }
-  //   });
-  // }
-  // if (props.deleteCustomFonts === true) {
-  //   document
-  //     .querySelectorAll("link[id*='muiCCustomFont']")
-  //     .forEach((font) => font.remove());
-  // }
-  // React.useEffect(() => {
+  if (props.customFonts && props.customFonts !== "") {
+    props.customFonts.split("|").forEach((font, index) => {
+      if (document.querySelectorAll("link[href='" + font + "']").length === 0) {
+        addFont(font, index);
+      }
+    });
+  }
+  if (props.deleteCustomFonts === true) {
+    document
+      .querySelectorAll("link[id*='muiCCustomFont']")
+      .forEach((font) => font.remove());
+  }
+  React.useEffect(() => {
+    setThemeOptions((oldTheme) => {
+      let options = { ...props };
 
-  //   setThemeOptions((oldTheme) => {
-  //     let options = { ...props };
+      options.currentTheme = oldTheme.theme;
 
-  //     options.currentTheme = oldTheme.theme;
+      let newTheme;
+      //if there is a theme object given, it will be the basis for any customizations
+      if (props.completeThemeObject && props.completeThemeObject !== "") {
+        options.currentTheme = createTheme({
+          ...JSON.parse(props.completeThemeObject),
+        });
+      }
+      newTheme = mergeThemes(options);
 
-  //     let newTheme;
-  //     //if there is a theme object given, it will be the basis for any customizations
-  //     if (props.completeThemeObject && props.completeThemeObject !== "") {
-  //       options.currentTheme = createTheme({ ...props.completeThemeObject });
-  //     }
-  //     newTheme = mergeThemes(options);
-
-  //     return {
-  //       theme: newTheme,
-
-  //     };
-  //   });
-
-  // }, [props, setThemeOptions, themeOptions.themeCustomizerProps]); //only re-run if any of these change
+      return {
+        theme: newTheme,
+      };
+    });
+  }, [props, setThemeOptions, themeOptions.themeCustomizerProps]); //only re-run if any of these change
 
   return (
     <div>
@@ -91,12 +90,12 @@ ThemeCustomizer.propTypes = {
   /**
    * Changes the primary color.
    */
-  primary: PropTypes.string,
+  palette_primary: PropTypes.string,
 
   /**
    * Changes the secondary color.
    */
-  secondary: PropTypes.string,
+  palette_secondary: PropTypes.string,
 
   /**
    * Changes the global border radius.
@@ -104,7 +103,7 @@ ThemeCustomizer.propTypes = {
   borderRadius: PropTypes.string,
 
   /**
-   * Add a theme object here, if you have one already. Missing properties will be calculated automatically. Works only when the default theme is selected
+   * Add a theme object here, if you have one already. Missing properties will be calculated automatically. Works only when the default theme is selected. Format has to be JSON.
    */
   themeObject: PropTypes.object,
 };

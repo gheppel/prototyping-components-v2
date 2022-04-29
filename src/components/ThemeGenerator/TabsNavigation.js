@@ -4,6 +4,8 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
+import Settings from "./Settings";
+import Colors from "./Colors";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -16,11 +18,7 @@ function TabPanel(props) {
       aria-labelledby={`simple-tab-${index}`}
       {...other}
     >
-      {value === index && (
-        <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
+      {value === index && <Box sx={{}}>{children}</Box>}
     </div>
   );
 }
@@ -53,7 +51,7 @@ export default function BasicTabs() {
           onChange={handleChange}
           aria-label="basic tabs example"
         >
-          <Tab label="General Settings" {...a11yProps(0)} />
+          <Tab label="Settings" {...a11yProps(0)} />
           <Tab label="Colors" {...a11yProps(1)} />
           <Tab label="Fonts" {...a11yProps(2)} />
           <Tab label="Spacing" {...a11yProps(3)} />
@@ -62,15 +60,17 @@ export default function BasicTabs() {
           <Tab label="Shadows" {...a11yProps(6)} />
         </Tabs>
       </Box>
-      <TabPanel value={value} index={0}>
-        Item One
-      </TabPanel>
-      <TabPanel value={value} index={1}>
-        Item Two
-      </TabPanel>
-      <TabPanel value={value} index={2}>
-        Item Three
-      </TabPanel>
+      <Box sx={{ mt: 4 }}>
+        <TabPanel value={value} index={0}>
+          <Settings></Settings>
+        </TabPanel>
+        <TabPanel value={value} index={1}>
+          <Colors></Colors>
+        </TabPanel>
+        <TabPanel value={value} index={2}>
+          Item Three
+        </TabPanel>
+      </Box>
     </Box>
   );
 }
