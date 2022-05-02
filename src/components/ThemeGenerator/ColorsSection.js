@@ -1,12 +1,9 @@
 import React from "react";
 import { ThemeGeneratorContext } from "./ThemeGenerator";
 import { Box } from "@mui/system";
-import MenuItem from "@mui/material/MenuItem";
-import BasicSelect from "./BasicSelect";
 import BasicTextField from "./BasicTextfield";
-import { Grid, IconButton, Typography } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 import PropTypes from "prop-types";
-import BrightnessIcon from "@mui/icons-material/Brightness1";
 
 function Indicator(props) {
   return (
@@ -28,20 +25,35 @@ function ColorsSection(props) {
   );
   return (
     <Grid container flexDirection="column">
-      <Grid item flexGrow="1" p={2}>
-        <Typography variant="h6">{props.title}</Typography>
+      <Grid item flexGrow="0" p={2} display="inline" width="max-content">
+        <Typography variant="h6" display="inline">
+          {props.title}
+        </Typography>
       </Grid>
       <Grid item>
         {props.type === "main" ? (
           <Grid container flexDirection="row">
             <Grid item>
               <Grid container alignItems="flex-start" mr={3}>
+                {/* {Object.keys(props.children).map((child)=>(
+                  <Grid item>
+                  <BasicTextField
+                    type="color"
+                    themeProp={"palette_" + props.variant}
+                    themeAccessor={"theme.palette." + [props.variant] + ".main"}
+                    label={props.variant}
+                    defaultValue={theme.palette[props.variant].main}
+                    helperText={"Choose a " + props.variant + " color"}
+                    width="180px"
+                  />
+                </Grid>
+                ))} */}
                 <Grid item>
                   <BasicTextField
                     type="color"
                     themeProp={"palette_" + props.variant}
-                    label={props.title}
-                    placeholder="e.g., #fff"
+                    themeAccessor={"theme.palette." + [props.variant] + ".main"}
+                    label={props.variant}
                     defaultValue={theme.palette[props.variant].main}
                     helperText={"Choose a " + props.variant + " color"}
                     width="180px"
@@ -62,8 +74,10 @@ function ColorsSection(props) {
                   <BasicTextField
                     type="color"
                     themeProp={"palette_" + props.variant + "_light"}
-                    label={props.title + "_light"}
-                    placeholder="e.g., #fff"
+                    themeAccessor={
+                      "theme.palette." + [props.variant] + ".light"
+                    }
+                    label={"light"}
                     defaultValue={theme.palette[props.variant].light}
                     helperText={
                       "Choose a " + props.variant + "_light" + " color"
@@ -86,8 +100,8 @@ function ColorsSection(props) {
                   <BasicTextField
                     type="color"
                     themeProp={"palette_" + props.variant + "_dark"}
-                    label={props.title + "_dark"}
-                    placeholder="e.g., #fff"
+                    themeAccessor={"theme.palette." + [props.variant] + ".dark"}
+                    label={"dark"}
                     defaultValue={theme.palette[props.variant].dark}
                     helperText={
                       "Choose a " + props.variant + "_dark" + " color"
@@ -110,12 +124,12 @@ function ColorsSection(props) {
                   <BasicTextField
                     type="color"
                     themeProp={"palette_" + props.variant + "_contrastText"}
-                    label={props.title + "_contrastText"}
-                    placeholder="e.g., #fff"
-                    defaultValue={theme.palette[props.variant].contrastText}
-                    helperText={
-                      "Choose a " + props.variant + "_contrastText" + " color"
+                    themeAccessor={
+                      "theme.palette." + [props.variant] + ".contrastText"
                     }
+                    label={"contrastText"}
+                    defaultValue={theme.palette[props.variant].contrastText}
+                    helperText={"Choose a contrasting text color"}
                     width="180px"
                   />
                 </Grid>

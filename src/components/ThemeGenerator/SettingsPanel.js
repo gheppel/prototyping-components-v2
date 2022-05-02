@@ -15,7 +15,7 @@ function SettingsPanel(props) {
       justifyContent="left"
       sx={{ maxWidth: "100%" }}
     >
-      <Grid item>
+      <Grid item width="max-content">
         <Typography variant="h5" p="10px" align="left">
           Customization
         </Typography>

@@ -6,6 +6,7 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Settings from "./Settings";
 import Colors from "./Colors";
+import Fonts from "./Fonts";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -70,7 +71,7 @@ export default function BasicTabs() {
           <Colors></Colors>
         </TabPanel>
         <TabPanel value={value} index={2}>
-          Item Three
+          <Fonts></Fonts>
         </TabPanel>
       </Box>
     </Box>

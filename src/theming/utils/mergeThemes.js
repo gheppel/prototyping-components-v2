@@ -104,10 +104,20 @@ function mergeThemes(props) {
         "warning",
         "info",
         "success",
+        "custom",
         "text",
         "background",
         "action",
         "common",
+      ];
+      let fullColorObjects = [
+        "primary",
+        "secondary",
+        "error",
+        "warning",
+        "info",
+        "success",
+        "custom",
       ];
       let numberProps = ["Opacity", "Threshold", "tonalOffset"];
 
@@ -125,7 +135,11 @@ function mergeThemes(props) {
               //it's a main color
 
               let propStr = color.split("_");
-              tempPalette[propStr[1]] = {};
+
+              //create obj if it doesn't yet exist
+              if (!tempPalette[propStr[1]]) {
+                tempPalette[propStr[1]] = {};
+              }
 
               if (propStr.length === 2) {
                 //is a main shade
@@ -145,8 +159,22 @@ function mergeThemes(props) {
 
                   tempPalette[propStr[1]][propStr[2]] = props[color];
                 }
+                //add main color if necessary
+                if (
+                  !tempPalette[propStr[1]].main ||
+                  tempPalette[propStr[1]].main === ""
+                ) {
+                  //no main color created yet, get default
+
+                  //!!! doesn't work for custom colors
+                  tempPalette[propStr[1]].main =
+                    currentTheme.palette[propStr[1]].main;
+                }
               }
-            } else {
+            }
+
+            //todo : check for custom colors
+            else {
               //it's a color without an object
               let propStr = color.split("_");
 
@@ -169,7 +197,7 @@ function mergeThemes(props) {
           }
         }
       });
-
+      // console.log("tempPalette: ", tempPalette);
       let createdPalette = createPalette(tempPalette);
 
       //updates the current theme with the calculated colors
@@ -217,15 +245,16 @@ function mergeThemes(props) {
       //variants
       customizeFontVariants();
       function customizeFontVariants() {
-        let propsToCheck = [
+        const propsToCheck = [
           "fontFamily",
           "fontWeight",
           "fontSize",
           "lineHeight",
           "letterSpacing",
           "textTransform",
+          "textDecoration",
         ];
-        let variants = [
+        const variants = [
           "h1",
           "h2",
           "h3",

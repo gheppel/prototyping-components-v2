@@ -14,7 +14,7 @@ function CopyThemeButton(props) {
     message: "Theme object copied successfully to the clipboard!",
     severity: "success",
   });
-  const [theme, setTheme] = React.useContext(ThemeGeneratorContext);
+  const [, , theme] = React.useContext(ThemeGeneratorContext);
   const copyTheme = () => {
     const openAlert = (success) => {
       setOpen(false);

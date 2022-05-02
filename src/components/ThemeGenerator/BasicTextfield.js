@@ -6,11 +6,9 @@ import PropTypes from "prop-types";
 import { decomposeColor, hexToRgb } from "@mui/system/esm/colorManipulator";
 
 function BasicTextField(props) {
-  const [themeProps, setThemeProps, theme, setTheme] = React.useContext(
-    ThemeGeneratorContext
-  );
+  const [, setThemeProps, , , reset] = React.useContext(ThemeGeneratorContext);
 
-  const [value, setValue] = React.useState(props.defaultValue);
+  const [value, setValue] = React.useState("");
   const [stateProps, setStateProps] = React.useState({
     error: false,
     helperText: props.helperText,
@@ -46,6 +44,11 @@ function BasicTextField(props) {
       });
     }
   }
+  React.useEffect(() => {
+    if (reset) {
+      setValue("");
+    }
+  }, [reset, props.themeAcessor]);
 
   return (
     <Box
@@ -60,7 +63,7 @@ function BasicTextField(props) {
         helperText={stateProps.helperText}
         value={value}
         onChange={handleChange}
-        placeholder={props.placeholder}
+        placeholder={"default: " + props.defaultValue}
         error={stateProps.error}
       />
     </Box>

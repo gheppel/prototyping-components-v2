@@ -8,9 +8,7 @@ import { ThemeGeneratorContext } from "./ThemeGenerator";
 
 function BasicSelect(props) {
   const [value, setValue] = React.useState(props.defaultValue);
-  const [themeProps, setThemeProps, theme, setTheme] = React.useContext(
-    ThemeGeneratorContext
-  );
+  const [, setThemeProps, , , reset] = React.useContext(ThemeGeneratorContext);
 
   const handleChange = (event) => {
     setValue(event.target.value);
@@ -18,9 +16,15 @@ function BasicSelect(props) {
       return { ...oldProps, [props.themeProp]: event.target.value };
     });
   };
-
+  React.useEffect(() => {
+    if (reset) {
+      setValue(props.defaultValue);
+    }
+  }, [reset, props.defaultValue]);
   return (
-    <Box sx={{ m: 2, minWidth: "50px" }}>
+    <Box
+      sx={{ m: 2, minWidth: "50px", width: props.width ? props.width : null }}
+    >
       <FormControl>
         <InputLabel id={"select-label-" + props.label}>
           {props.label}

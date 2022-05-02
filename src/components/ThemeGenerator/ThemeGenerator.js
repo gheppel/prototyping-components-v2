@@ -5,7 +5,7 @@ import { Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { Paper } from "@mui/material";
 import { Grid } from "@mui/material";
-import CopyThemeButton from "./ButtonWithAlert";
+import CopyThemeButton from "./CopyThemeButton";
 import SettingsPanel from "./SettingsPanel";
 import { ThemeProvider } from "@mui/material/styles";
 import LiveViewDummy from "./LiveViewDummy";
@@ -31,6 +31,7 @@ function ThemeGenerator(props) {
     return mergeThemes({ resetTheme: true });
     // }
   });
+  const [reset, triggerReset] = React.useState(false);
   // const [defaultThemes, setDefaultThemes] = React.useState({
   //   light: createTheme({ palette: { mode: "light" } }),
   //   dark: createTheme({ palette: { mode: "dark" } }),
@@ -67,6 +68,8 @@ function ThemeGenerator(props) {
       if (themeProps.resetTheme) {
         //reset theme
         setTheme(mergeThemes({ resetTheme: true }));
+        triggerReset(true);
+        setThemeProps({});
       } else {
         setTheme((oldTheme) => {
           let newTheme = mergeThemes(themeProps);
@@ -86,10 +89,15 @@ function ThemeGenerator(props) {
     //   localStorage.setItem("MUIdS_theme", JSON.stringify(theme));
     // }
   }, [theme]);
-
+  React.useEffect(() => {
+    if (reset) {
+      console.log("reset was triggered");
+      triggerReset(false);
+    }
+  }, [reset]);
   return (
     <ThemeGeneratorContext.Provider
-      value={[themeProps, setThemeProps, theme, setTheme]}
+      value={[themeProps, setThemeProps, theme, setTheme, reset]}
     >
       <ThemeProvider theme={theme}>
         <Box container flexDirection="column" height="100%" width="100%">
@@ -151,7 +159,7 @@ function ThemeGenerator(props) {
                   // pr={1}
                   p={2}
                   sx={{ resize: "horizontal", overflow: "auto" }}
-                  maxWidth="50%"
+                  // width="50%"
                   maxHeight="100%"
                 >
                   <Paper sx={{ height: "100%", width: "100%" }} elevation={2}>
@@ -190,7 +198,7 @@ function ThemeGenerator(props) {
                   mr={2}
                   mb={2}
                   mt={2}
-                  maxWidth="50%"
+                  // maxWidth="50%"
                 >
                   <Paper sx={{ height: "100%", width: "100%" }} elevation={2}>
                     <Box
@@ -219,7 +227,9 @@ function ThemeGenerator(props) {
                       <Typography variant="h5" p="10px" align="left">
                         Live View
                       </Typography>
-                      <LiveViewDummy></LiveViewDummy>
+                      <Box sx={{ p: "10px" }}>
+                        <LiveViewDummy></LiveViewDummy>
+                      </Box>
                     </Box>
                   </Paper>
                 </Grid>
