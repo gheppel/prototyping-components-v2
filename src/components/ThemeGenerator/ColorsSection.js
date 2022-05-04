@@ -34,33 +34,38 @@ function ColorsSection(props) {
       </Grid>
       <Grid item>
         <Grid container flexDirection="row" mr={3}>
-          {props.children.map((child) => {
+          {props.children.map((child, i) => {
             const childSplit = child.split("_");
+            // console.log(childSplit);
             const isMiscellaneous = miscellaneousProps.some(
               (miscellaneousProp) => childSplit.includes(miscellaneousProp)
             );
             return (
-              <Grid item>
+              <Grid item key={i}>
                 <Grid container alignItems="flex-start">
                   {childSplit.length === 1 ? (
                     //normal color with indicator
                     <React.Fragment>
-                      <Grid item>
+                      <Grid item class="normalColor">
                         <BasicTextField
                           type="color"
                           themeProp={
-                            "palette_" + props.variant + "_" + child !== "main"
-                              ? child
-                              : null
+                            "palette_" +
+                            props.variant +
+                            (childSplit[0] === "main"
+                              ? ""
+                              : "_" + childSplit[0])
                           }
                           themeAccessor={
-                            "theme.palette." + [props.variant] + child
+                            "theme.palette." + [props.variant] + childSplit[0]
                           }
-                          label={child}
-                          defaultValue={theme.palette[props.variant][child]}
+                          label={childSplit[0]}
+                          defaultValue={
+                            theme.palette[props.variant][childSplit[0]]
+                          }
                           helperText={
                             "Choose a " +
-                            child +
+                            childSplit[0] +
                             " variant for the " +
                             props.variant +
                             " color"
@@ -72,7 +77,7 @@ function ColorsSection(props) {
                         <Indicator
                           theme={theme}
                           variant={props.variant}
-                          colorVariant={child}
+                          colorVariant={childSplit[0]}
                         />
                       </Grid>
                     </React.Fragment>
@@ -155,6 +160,12 @@ ColorsSection.propTypes = {
     "error",
     "warning",
     "info",
+    "text",
+    "background",
+    "action",
+    "common",
+    "grey",
+    "miscellaneous",
   ]),
 };
 export default ColorsSection;

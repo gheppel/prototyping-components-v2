@@ -62,8 +62,8 @@ function Colors(props) {
           </Alert>
         </Box>
       </Grid>
-      {Object.keys(colorProps).map((colorProp) => (
-        <Grid item width="max-content">
+      {Object.keys(colorProps).map((colorProp, i) => (
+        <Grid item width="max-content" key={i}>
           <ColorsSection title={colorProp} type="main" variant={colorProp}>
             {colorProps[colorProp]}
           </ColorsSection>
