@@ -5,6 +5,7 @@ import MenuItem from "@mui/material/MenuItem";
 import BasicSelect from "./BasicSelect";
 import BasicTextField from "./BasicTextfield";
 import { Grid } from "@mui/material";
+import { Alert, AlertTitle } from "@mui/material";
 
 function Settings(props) {
   const [themeProps, setThemeProps, theme, setTheme] = React.useContext(
@@ -12,6 +13,16 @@ function Settings(props) {
   );
   return (
     <Grid container>
+      <Grid item>
+        <Box sx={{ m: 2 }}>
+          <Alert severity="error">
+            <AlertTitle>Don't use enter</AlertTitle>
+            Please refrain from using the enter key after entering values into
+            textfields, as this will reload the page and all progress will be
+            lost
+          </Alert>
+        </Box>
+      </Grid>
       <Grid item>
         <BasicSelect
           label="Theme"

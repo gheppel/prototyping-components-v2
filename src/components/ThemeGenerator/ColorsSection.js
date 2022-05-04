@@ -23,6 +23,8 @@ function ColorsSection(props) {
   const [themeProps, setThemeProps, theme, setTheme] = React.useContext(
     ThemeGeneratorContext
   );
+  const miscellaneousProps = ["contrastThreshold", "divider", "tonalOffset"];
+  // console.log(props.children);
   return (
     <Grid container flexDirection="column">
       <Grid item flexGrow="0" p={2} display="inline" width="max-content">
@@ -31,119 +33,114 @@ function ColorsSection(props) {
         </Typography>
       </Grid>
       <Grid item>
-        {props.type === "main" ? (
-          <Grid container flexDirection="row">
-            <Grid item>
-              <Grid container alignItems="flex-start" mr={3}>
-                {/* {Object.keys(props.children).map((child)=>(
-                  <Grid item>
-                  <BasicTextField
-                    type="color"
-                    themeProp={"palette_" + props.variant}
-                    themeAccessor={"theme.palette." + [props.variant] + ".main"}
-                    label={props.variant}
-                    defaultValue={theme.palette[props.variant].main}
-                    helperText={"Choose a " + props.variant + " color"}
-                    width="180px"
-                  />
-                </Grid>
-                ))} */}
-                <Grid item>
-                  <BasicTextField
-                    type="color"
-                    themeProp={"palette_" + props.variant}
-                    themeAccessor={"theme.palette." + [props.variant] + ".main"}
-                    label={props.variant}
-                    defaultValue={theme.palette[props.variant].main}
-                    helperText={"Choose a " + props.variant + " color"}
-                    width="180px"
-                  />
-                </Grid>
-                <Grid item pt="16px" ml={2}>
-                  <Indicator
-                    theme={theme}
-                    variant={props.variant}
-                    colorVariant="main"
-                  />
-                </Grid>
-              </Grid>
-            </Grid>
-            <Grid item>
-              <Grid container alignItems="flex-start" mr={3}>
-                <Grid item>
-                  <BasicTextField
-                    type="color"
-                    themeProp={"palette_" + props.variant + "_light"}
-                    themeAccessor={
-                      "theme.palette." + [props.variant] + ".light"
-                    }
-                    label={"light"}
-                    defaultValue={theme.palette[props.variant].light}
-                    helperText={
-                      "Choose a " + props.variant + "_light" + " color"
-                    }
-                    width="180px"
-                  />
-                </Grid>
-                <Grid item pt="16px" ml={2}>
-                  <Indicator
-                    theme={theme}
-                    variant={props.variant}
-                    colorVariant="light"
-                  />
-                </Grid>
-              </Grid>
-            </Grid>
-            <Grid item>
-              <Grid container alignItems="flex-start" mr={3}>
-                <Grid item>
-                  <BasicTextField
-                    type="color"
-                    themeProp={"palette_" + props.variant + "_dark"}
-                    themeAccessor={"theme.palette." + [props.variant] + ".dark"}
-                    label={"dark"}
-                    defaultValue={theme.palette[props.variant].dark}
-                    helperText={
-                      "Choose a " + props.variant + "_dark" + " color"
-                    }
-                    width="180px"
-                  />
-                </Grid>
-                <Grid item pt="16px" ml={2}>
-                  <Indicator
-                    theme={theme}
-                    variant={props.variant}
-                    colorVariant="dark"
-                  />
-                </Grid>
-              </Grid>
-            </Grid>
-            <Grid item>
-              <Grid container alignItems="flex-start" mr={3}>
-                <Grid item>
-                  <BasicTextField
-                    type="color"
-                    themeProp={"palette_" + props.variant + "_contrastText"}
-                    themeAccessor={
-                      "theme.palette." + [props.variant] + ".contrastText"
-                    }
-                    label={"contrastText"}
-                    defaultValue={theme.palette[props.variant].contrastText}
-                    helperText={"Choose a contrasting text color"}
-                    width="180px"
-                  />
-                </Grid>
-                <Grid item pt="16px" ml={2}>
-                  <Indicator
-                    theme={theme}
-                    variant={props.variant}
-                    colorVariant="contrastText"
-                  />
+        <Grid container flexDirection="row" mr={3}>
+          {props.children.map((child) => {
+            const childSplit = child.split("_");
+            const isMiscellaneous = miscellaneousProps.some(
+              (miscellaneousProp) => childSplit.includes(miscellaneousProp)
+            );
+            return (
+              <Grid item>
+                <Grid container alignItems="flex-start">
+                  {childSplit.length === 1 ? (
+                    //normal color with indicator
+                    <React.Fragment>
+                      <Grid item>
+                        <BasicTextField
+                          type="color"
+                          themeProp={
+                            "palette_" + props.variant + "_" + child !== "main"
+                              ? child
+                              : null
+                          }
+                          themeAccessor={
+                            "theme.palette." + [props.variant] + child
+                          }
+                          label={child}
+                          defaultValue={theme.palette[props.variant][child]}
+                          helperText={
+                            "Choose a " +
+                            child +
+                            " variant for the " +
+                            props.variant +
+                            " color"
+                          }
+                          width="180px"
+                        />
+                      </Grid>
+                      <Grid item pt="16px" ml={2}>
+                        <Indicator
+                          theme={theme}
+                          variant={props.variant}
+                          colorVariant={child}
+                        />
+                      </Grid>
+                    </React.Fragment>
+                  ) : (
+                    //miscellaneous color without indicator
+                    <React.Fragment>
+                      <Grid item mr="72px">
+                        <BasicTextField
+                          type="color"
+                          themeProp={
+                            isMiscellaneous
+                              ? "palette_" + childSplit[0]
+                              : "palette_" +
+                                  props.variant +
+                                  "_" +
+                                  childSplit[0] !==
+                                "main"
+                              ? childSplit[0]
+                              : null
+                          }
+                          themeAccessor={
+                            isMiscellaneous
+                              ? "theme.palette." + childSplit[0]
+                              : "theme.palette." +
+                                [props.variant] +
+                                childSplit[0]
+                          }
+                          label={childSplit[0]}
+                          defaultValue={
+                            isMiscellaneous
+                              ? theme.palette[childSplit[0]]
+                              : theme.palette[props.variant][childSplit[0]]
+                          }
+                          helperText={
+                            isMiscellaneous
+                              ? "Choose a value for the " + childSplit[0]
+                              : "Choose a " +
+                                childSplit[0] +
+                                " value for the " +
+                                props.variant +
+                                " color"
+                          }
+                          width="180px"
+                        />
+                      </Grid>
+                      {childSplit[0] === "divider" ? (
+                        //special case divider
+                        <Grid item pt="16px" ml={2}>
+                          <Box
+                            sx={{
+                              width: "54px",
+                              height: "54px",
+                              backgroundColor: theme.palette[childSplit[0]],
+                              borderRadius: "50%",
+                              border: "1px solid",
+                              borderColor: theme.palette.divider,
+                              ml: "-72px",
+                            }}
+                          ></Box>
+                        </Grid>
+                      ) : null}
+                    </React.Fragment>
+                  )}
                 </Grid>
               </Grid>
-            </Grid>
-          </Grid>
-        ) : null}
+            );
+          })}
+        </Grid>
       </Grid>
     </Grid>
   );

@@ -114,7 +114,12 @@ function ThemeGenerator(props) {
               flexWrap="nowrap"
             >
               {/* Heading */}
-              <Grid container padding="15px" alignItems="center">
+              <Grid
+                container
+                padding="15px"
+                alignItems="center"
+                flexWrap="nowrap"
+              >
                 <Grid item mr={4}>
                   <Typography
                     variant="h4"

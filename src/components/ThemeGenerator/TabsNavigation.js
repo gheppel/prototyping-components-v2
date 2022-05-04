@@ -7,6 +7,7 @@ import Box from "@mui/material/Box";
 import Settings from "./Settings";
 import Colors from "./Colors";
 import Fonts from "./Fonts";
+import { ThemeGeneratorContext } from "./ThemeGenerator";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -39,14 +40,35 @@ function a11yProps(index) {
 
 export default function BasicTabs() {
   const [value, setValue] = React.useState(0);
-
+  const [width, setWidth] = React.useState("0px");
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+  const [, , theme, , ,] = React.useContext(ThemeGeneratorContext);
+  React.useEffect(() => {
+    let resizeObserver;
+    if (!resizeObserver) {
+      const resize_ob = new ResizeObserver(function (entries) {
+        let panel = entries[0].contentRect;
+        setWidth(panel.width + "px");
+      });
+      resize_ob.observe(document.querySelector("#settingsPanel"));
+    }
+  });
 
   return (
-    <Box sx={{ maxWidth: "100%" }}>
-      <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+    <Box sx={{ maxWidth: "100%", mt: "49px" }}>
+      <Box
+        sx={{
+          borderBottom: 1,
+          borderColor: "divider",
+          position: "fixed",
+          top: "96px",
+          width: width,
+          backgroundColor: theme.palette.background.paper,
+          zIndex: 9000,
+        }}
+      >
         <Tabs
           value={value}
           onChange={handleChange}

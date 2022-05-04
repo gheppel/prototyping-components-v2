@@ -110,15 +110,15 @@ function mergeThemes(props) {
         "action",
         "common",
       ];
-      let fullColorObjects = [
-        "primary",
-        "secondary",
-        "error",
-        "warning",
-        "info",
-        "success",
-        "custom",
-      ];
+      // let fullColorObjects = [
+      //   "primary",
+      //   "secondary",
+      //   "error",
+      //   "warning",
+      //   "info",
+      //   "success",
+      //   "custom",
+      // ];
       let numberProps = ["Opacity", "Threshold", "tonalOffset"];
 
       //expects color props to be like: "props.palette_primary" or "props.palette_primary_light"
@@ -213,12 +213,39 @@ function mergeThemes(props) {
 
     //fonts
     function customizeFonts() {
+      const propsToCheck = [
+        "fontFamily",
+        "fontWeight",
+        "fontSize",
+        "lineHeight",
+        "letterSpacing",
+        "textTransform",
+        "textDecoration",
+      ];
+      const variants = [
+        "h1",
+        "h2",
+        "h3",
+        "h4",
+        "h5",
+        "h6",
+        "subtitle1",
+        "subtitle2",
+        "body1",
+        "body2",
+        "button",
+        "caption",
+        "overline",
+      ];
       //general Properties
       if (props.htmlFontSize && props.htmlFontSize !== 0) {
         currentTheme.typography.htmlFontSize = parseInt(props.htmlFontSize);
       }
       if (props.fontFamily) {
         currentTheme.typography.fontFamily = props.fontFamily;
+        variants.forEach((variant) => {
+          currentTheme.typography[variant].fontFamily = props.fontFamily;
+        });
       }
       if (props.fontSize && props.fontSize !== 0) {
         currentTheme.typography.fontSize = parseInt(props.fontSize);
@@ -245,31 +272,6 @@ function mergeThemes(props) {
       //variants
       customizeFontVariants();
       function customizeFontVariants() {
-        const propsToCheck = [
-          "fontFamily",
-          "fontWeight",
-          "fontSize",
-          "lineHeight",
-          "letterSpacing",
-          "textTransform",
-          "textDecoration",
-        ];
-        const variants = [
-          "h1",
-          "h2",
-          "h3",
-          "h4",
-          "h5",
-          "h6",
-          "subtitle1",
-          "subtitle2",
-          "body1",
-          "body2",
-          "button",
-          "caption",
-          "overline",
-        ];
-
         variants.forEach((variant) => {
           propsToCheck.forEach((prop) => {
             let currentProp = variant + "_" + prop;

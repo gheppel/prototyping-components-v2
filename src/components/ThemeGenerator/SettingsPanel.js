@@ -15,12 +15,12 @@ function SettingsPanel(props) {
       justifyContent="left"
       sx={{ maxWidth: "100%" }}
     >
-      <Grid item width="max-content">
+      {/* <Grid item width="max-content">
         <Typography variant="h5" p="10px" align="left">
           Customization
         </Typography>
-      </Grid>
-      <Grid item sx={{ maxWidth: "100%" }}>
+      </Grid> */}
+      <Grid item sx={{ maxWidth: "100%" }} id="settingsPanel">
         <TabsNavigation></TabsNavigation>
       </Grid>
     </Grid>

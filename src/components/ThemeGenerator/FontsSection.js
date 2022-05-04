@@ -49,8 +49,8 @@ function FontsSection(props) {
         <Grid container flexDirection="column">
           <Grid item>
             <Grid container flexDirection="row">
-              {propertiesTextfield.map((property) => (
-                <Grid item>
+              {propertiesTextfield.map((property, i) => (
+                <Grid item key={i}>
                   <BasicTextField
                     type="font"
                     themeProp={props.variant + "_" + property}
@@ -70,8 +70,8 @@ function FontsSection(props) {
                   />
                 </Grid>
               ))}
-              {Object.keys(propertiesSelect).map((property) => (
-                <Grid item>
+              {Object.keys(propertiesSelect).map((property, i) => (
+                <Grid item key={i}>
                   <BasicSelect
                     width="180px"
                     label={property}
@@ -89,8 +89,10 @@ function FontsSection(props) {
                     }
                     themeProp={props.variant + "_" + property}
                   >
-                    {propertiesSelect[property].map((option) => (
-                      <MenuItem value={option}>{option}</MenuItem>
+                    {propertiesSelect[property].map((option, i) => (
+                      <MenuItem value={option} key={i}>
+                        {option}
+                      </MenuItem>
                     ))}
                   </BasicSelect>
                 </Grid>

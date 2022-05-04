@@ -23,7 +23,7 @@ function BasicTextField(props) {
   }
 
   function handleChange(event) {
-    console.log(event.target.value);
+    // console.log(event.target.value);
     if (props.type === "color") {
       if (isAColor(event.target.value)) {
         setValue(event.target.value);
@@ -55,6 +55,7 @@ function BasicTextField(props) {
       component="form"
       sx={{ my: 2, ml: 2, width: props.width }}
       autoComplete="off"
+      noValidate
     >
       <TextField
         id="outlined-basic"
@@ -65,6 +66,7 @@ function BasicTextField(props) {
         onChange={handleChange}
         placeholder={"default: " + props.defaultValue}
         error={stateProps.error}
+        onkeydown="return event.key != 'Enter';"
       />
     </Box>
   );
@@ -75,6 +77,7 @@ BasicTextField.propTypes = {
   helperText: PropTypes.string,
   placeholder: PropTypes.string,
   width: PropTypes.string,
-  type: PropTypes.oneOf(["color"]),
+  type: PropTypes.oneOf(["color", "font"]),
+  defaultValue: PropTypes.string,
 };
 export default BasicTextField;
