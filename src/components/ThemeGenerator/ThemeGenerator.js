@@ -1,6 +1,5 @@
 import React from "react";
 import { mergeThemes } from "../../theming/utils/mergeThemes";
-import { Button } from "@mui/material";
 import { Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { Paper } from "@mui/material";
@@ -9,7 +8,6 @@ import CopyThemeButton from "./CopyThemeButton";
 import SettingsPanel from "./SettingsPanel";
 import { ThemeProvider } from "@mui/material/styles";
 import LiveViewDummy from "./LiveViewDummy";
-import { createTheme } from "@mui/material/styles";
 import ResetButton from "./ResetButton";
 
 export const ThemeGeneratorContext = React.createContext({});
@@ -32,6 +30,7 @@ function ThemeGenerator(props) {
     // }
   });
   const [reset, triggerReset] = React.useState(false);
+  const [pickers, setPickers] = React.useState({});
   // const [defaultThemes, setDefaultThemes] = React.useState({
   //   light: createTheme({ palette: { mode: "light" } }),
   //   dark: createTheme({ palette: { mode: "dark" } }),
@@ -97,7 +96,15 @@ function ThemeGenerator(props) {
   }, [reset]);
   return (
     <ThemeGeneratorContext.Provider
-      value={[themeProps, setThemeProps, theme, setTheme, reset]}
+      value={[
+        themeProps,
+        setThemeProps,
+        theme,
+        setTheme,
+        reset,
+        pickers,
+        setPickers,
+      ]}
     >
       <ThemeProvider theme={theme}>
         <Box container flexDirection="column" height="100%" width="100%">
@@ -233,7 +240,11 @@ function ThemeGenerator(props) {
                         Live View
                       </Typography>
                       <Box sx={{ p: "10px" }}>
-                        <LiveViewDummy></LiveViewDummy>
+                        {!props.children ? (
+                          <LiveViewDummy></LiveViewDummy>
+                        ) : (
+                          props.children
+                        )}
                       </Box>
                     </Box>
                   </Paper>

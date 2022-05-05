@@ -44,7 +44,7 @@ function ColorsSection(props) {
               <Grid item key={i}>
                 <Grid container alignItems="flex-start">
                   {childSplit.length === 1 ? (
-                    //normal color with indicator
+                    // color with indicator
                     <React.Fragment>
                       <Grid item class="normalColor">
                         <BasicTextField
@@ -82,11 +82,11 @@ function ColorsSection(props) {
                       </Grid>
                     </React.Fragment>
                   ) : (
-                    //miscellaneous color without indicator
+                    //colorvalue without indicator
                     <React.Fragment>
                       <Grid item mr="72px">
                         <BasicTextField
-                          type="color"
+                          type="number"
                           themeProp={
                             isMiscellaneous
                               ? "palette_" + childSplit[0]
