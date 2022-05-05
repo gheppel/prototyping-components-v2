@@ -32,16 +32,17 @@ function ThemeCustomizer(props) {
     setThemeOptions((oldTheme) => {
       let options = { ...props };
 
-      options.currentTheme = oldTheme.theme;
+      // options.currentTheme = oldTheme.theme;
 
       let newTheme;
       //if there is a theme object given, it will be the basis for any customizations
-      if (props.completeThemeObject && props.completeThemeObject !== "") {
-        options.currentTheme = createTheme({
-          ...JSON.parse(props.completeThemeObject),
+      if (props.themeObject && props.themeObject !== "") {
+        options.themeObject = createTheme({
+          ...JSON.parse(JSON.stringify(props.themeObject)),
         });
       }
       newTheme = mergeThemes(options);
+      console.log("theme based on the theme object ", newTheme);
 
       return {
         theme: newTheme,
@@ -59,17 +60,17 @@ function ThemeCustomizer(props) {
 }
 
 ThemeCustomizer.propTypes = {
-  /**
-   * The label of the button.
-   * @uxpinpropname Label
-   * */
-  children: PropTypes.node,
+  // /**
+  //  * The label of the button.
+  //  * @uxpinpropname Label
+  //  * */
+  // children: PropTypes.node,
 
-  /**
-   * The color theme. Overrides any theme properties in parents if specified
-   * @uxpinpropname theme
-   */
-  themeProfile: PropTypes.oneOf(["light", "dark", "hacker"]),
+  // /**
+  //  * The color theme. Overrides any theme properties in parents if specified
+  //  * @uxpinpropname theme
+  //  */
+  // themeProfile: PropTypes.oneOf(["light", "dark", "hacker"]),
 
   /**
    * Adds given font links (e.g., Google webfont links) to the html head. Separate multiple links with a pipe ("|")
@@ -82,25 +83,25 @@ ThemeCustomizer.propTypes = {
    */
   deleteCustomFonts: PropTypes.bool,
 
-  /**
-   * Disables the ripple effect.
-   */
-  disableRipple: PropTypes.bool,
+  // /**
+  //  * Disables the ripple effect.
+  //  */
+  // disableRipple: PropTypes.bool,
 
-  /**
-   * Changes the primary color.
-   */
-  palette_primary: PropTypes.string,
+  // /**
+  //  * Changes the primary color.
+  //  */
+  // palette_primary: PropTypes.string,
 
-  /**
-   * Changes the secondary color.
-   */
-  palette_secondary: PropTypes.string,
+  // /**
+  //  * Changes the secondary color.
+  //  */
+  // palette_secondary: PropTypes.string,
 
-  /**
-   * Changes the global border radius.
-   */
-  borderRadius: PropTypes.string,
+  // /**
+  //  * Changes the global border radius.
+  //  */
+  // borderRadius: PropTypes.string,
 
   /**
    * Add a theme object here, if you have one already. Missing properties will be calculated automatically. Works only when the default theme is selected. Format has to be JSON.

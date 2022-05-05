@@ -307,6 +307,12 @@ function mergeThemes(props) {
     console.log("chosenTheme", chosenTheme);
     const customizedTheme = customizeTheme(chosenTheme);
     return customizedTheme;
+  } else if (props.themeObject !== undefined && props.themeObject !== "") {
+    //a full theme object was given
+
+    //merge any custom properties with the given theme object
+    const customizedTheme = customizeTheme(props.themeObject);
+    return customizedTheme;
   } else {
     //no specific theme was chosen
 
