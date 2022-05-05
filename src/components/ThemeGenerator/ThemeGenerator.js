@@ -9,6 +9,7 @@ import SettingsPanel from "./SettingsPanel";
 import { ThemeProvider } from "@mui/material/styles";
 import LiveViewDummy from "./LiveViewDummy";
 import ResetButton from "./ResetButton";
+import PropTypes from "prop-types";
 
 export const ThemeGeneratorContext = React.createContext({});
 // let computedTheme = mergeThemes({ resetTheme: true });
@@ -96,15 +97,7 @@ function ThemeGenerator(props) {
   }, [reset]);
   return (
     <ThemeGeneratorContext.Provider
-      value={[
-        themeProps,
-        setThemeProps,
-        theme,
-        setTheme,
-        reset,
-        pickers,
-        setPickers,
-      ]}
+      value={[themeProps, setThemeProps, theme, setTheme, reset]}
     >
       <ThemeProvider theme={theme}>
         <Box container flexDirection="column" height="100%" width="100%">
@@ -257,5 +250,10 @@ function ThemeGenerator(props) {
     </ThemeGeneratorContext.Provider>
   );
 }
-
+ThemeGenerator.propTypes = {
+  /**
+   * @uxpinignoreprop
+   * */
+  children: PropTypes.node,
+};
 export default ThemeGenerator;

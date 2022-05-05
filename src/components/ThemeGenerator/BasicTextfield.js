@@ -4,8 +4,8 @@ import TextField from "@mui/material/TextField";
 import { ThemeGeneratorContext } from "./ThemeGenerator";
 import PropTypes from "prop-types";
 import { decomposeColor } from "@mui/system/esm/colorManipulator";
-import Pickr from "@simonwep/pickr";
-import "@simonwep/pickr/dist/themes/classic.min.css";
+// import Pickr from "@simonwep/pickr";
+// import "@simonwep/pickr/dist/themes/classic.min.css";
 // color picker: https://github.com/Simonwep/pickr
 
 function BasicTextField(props) {
@@ -17,7 +17,7 @@ function BasicTextField(props) {
     error: false,
     helperText: props.helperText,
   });
-  const [initialized, initialize] = React.useState(false);
+  // const [initialized, initialize] = React.useState(false);
 
   function isAColor(color) {
     try {
@@ -32,9 +32,8 @@ function BasicTextField(props) {
     // console.log(event.target.value);
     if (props.type === "color") {
       //event is hexA color
-      const color = event;
-      // if (isAColor(event.target.value)) {
-      if (color) {
+      const color = event.target.value;
+      if (isAColor(color)) {
         setValue(color);
         setThemeProps((oldProps) => {
           return { ...oldProps, [props.themeProp]: color };
@@ -55,52 +54,52 @@ function BasicTextField(props) {
     }
   }
 
-  function initPicker() {
-    const picker = Pickr.create({
-      el: "#" + props.themeProp + "_input",
-      container: "#actualSettingsPanel",
-      useAsButton: true,
-      theme: "classic",
-      swatches: [
-        theme.palette.primary.main,
-        theme.palette.secondary.main,
-        theme.palette.success.main,
-        theme.palette.info.main,
-        theme.palette.error.main,
-        theme.palette.warning.main,
-      ],
-      showAlways: false,
-      closeOnScroll: true,
-      position: "top-start",
-      default: props.defaultValue,
-      components: {
-        preview: true,
-        opacity: true,
-        hue: true,
-        interaction: {
-          hex: false,
-          rgba: false,
-          hsla: false,
-          hsva: false,
-          cmyk: false,
-          input: true,
-          clear: true,
-          save: true,
-        },
-      },
-    })
-      .on("init", (instance) => {
-        console.log("pickr initialized");
-      })
-      .on("save", (color, instance) => {
-        // console.log(color.toHEXA().toString());
-        handleChange(color.toHEXA().toString());
-        instance.hide();
-      });
-    setPickers((other) => {
-      return { ...other, [props.themeProp]: picker };
-    });
-  }
+  // function initPicker() {
+  //   const picker = Pickr.create({
+  //     el: "#" + props.themeProp + "_input",
+  //     container: "#actualSettingsPanel",
+  //     useAsButton: true,
+  //     theme: "classic",
+  //     swatches: [
+  //       theme.palette.primary.main,
+  //       theme.palette.secondary.main,
+  //       theme.palette.success.main,
+  //       theme.palette.info.main,
+  //       theme.palette.error.main,
+  //       theme.palette.warning.main,
+  //     ],
+  //     showAlways: false,
+  //     closeOnScroll: true,
+  //     position: "top-start",
+  //     default: props.defaultValue,
+  //     components: {
+  //       preview: true,
+  //       opacity: true,
+  //       hue: true,
+  //       interaction: {
+  //         hex: false,
+  //         rgba: false,
+  //         hsla: false,
+  //         hsva: false,
+  //         cmyk: false,
+  //         input: true,
+  //         clear: true,
+  //         save: true,
+  //       },
+  //     },
+  //   })
+  //     .on("init", (instance) => {
+  //       console.log("pickr initialized");
+  //     })
+  //     .on("save", (color, instance) => {
+  //       // console.log(color.toHEXA().toString());
+  //       handleChange(color.toHEXA().toString());
+  //       instance.hide();
+  //     });
+  //   setPickers((other) => {
+  //     return { ...other, [props.themeProp]: picker };
+  //   });
+  // }
   // let pickers = {};
   // const addPicker = (key, instance) => {
   //   pickers[key] = instance;
@@ -161,26 +160,26 @@ function BasicTextField(props) {
   //         })
   //     : undefined;
 
-  React.useEffect(() => {
-    //init color picker
-    if (!initialized) {
-      initialize(true);
+  // React.useEffect(() => {
+  //   //init color picker
+  //   if (!initialized) {
+  //     initialize(true);
 
-      if (props.type === "color") {
-        if (pickers[props.themeProp] === undefined) {
-          initPicker();
-        } else {
-          let picker = pickers[props.themeProp];
-          console.log(picker);
-          picker.destroyAndRemove();
-          initPicker();
-        }
-      }
-    }
-    // return () => {
-    //   console.log("clean up for " + props.themeProp);
-    // };
-  }, [initialized]);
+  //     if (props.type === "color") {
+  //       if (pickers[props.themeProp] === undefined) {
+  //         initPicker();
+  //       } else {
+  //         let picker = pickers[props.themeProp];
+  //         console.log(picker);
+  //         picker.destroyAndRemove();
+  //         initPicker();
+  //       }
+  //     }
+  //   }
+  //   // return () => {
+  //   //   console.log("clean up for " + props.themeProp);
+  //   // };
+  // }, [initialized]);
   // React.useEffect(() => {
   //   return () => {
   //     console.log("color pickers will be cleaned up");

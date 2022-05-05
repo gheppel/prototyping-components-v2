@@ -85,7 +85,7 @@ export default function BasicTabs() {
           <Tab label="Shadows" {...a11yProps(6)} />
         </Tabs>
       </Box>
-      <Box sx={{ mt: 4 }} id="actualSettingsPanel">
+      <Box sx={{ mt: 4, width: width }} id="actualSettingsPanel">
         <TabPanel value={value} index={0}>
           <Settings></Settings>
         </TabPanel>

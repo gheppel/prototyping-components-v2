@@ -10,6 +10,7 @@ import {
   Button,
   Snackbar,
   Alert,
+  AlertTitle,
 } from "@mui/material";
 import BasicTextField from "./BasicTextfield";
 import { ThemeGeneratorContext } from "./ThemeGenerator";
@@ -149,52 +150,79 @@ function Fonts() {
               <Typography variant="h6">Custom Fonts</Typography>
             </AccordionSummary>
             <AccordionDetails>
-              <Grid
-                container
-                flexDirection="row"
-                alignItems="flex-start"
-                flexWrap="nowrap"
-              >
-                <Grid item></Grid>
-                <Grid item>
-                  <Box component="form" noValidate autoComplete="off">
-                    <TextField
-                      id="MUICustomFontsInput"
-                      multiline
-                      placeholder="font url(s)"
-                      helperText="Adds given font links (e.g., Google webfont links) to the html head. Separate multiple links with a pipe ('|')"
-                    />
-                  </Box>
+              <Grid container>
+                <Grid item maxWidth="100%" mb={2}>
+                  <Alert severity="warning">
+                    <AlertTitle>Reminder</AlertTitle>You have to copy the font
+                    link into the theme customizer component in UXPin as well to
+                    make it work there too.
+                  </Alert>
                 </Grid>
-                <Grid item mt="">
-                  <Button
-                    variant="contained"
-                    sx={{ ml: 2 }}
-                    onClick={handleCustomFontsChange}
+                <Grid item maxWidth="100%" mb={2}>
+                  <Alert severity="info">
+                    <AlertTitle>Font Links</AlertTitle>If you want to add Lato
+                    from Google fonts, just paste the value from the href
+                    attribute here like this:
+                    https://fonts.googleapis.com/css2?family=Lato:ital,
+                    wght@0,100;0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap
+                  </Alert>
+                </Grid>
+                <Grid item maxWidth="100%" mb={2}>
+                  <Alert severity="info">
+                    <AlertTitle>fontFamily value</AlertTitle>For some fonts you
+                    have to add a classification after the font name, like for
+                    Ubuntu Mono: "Ubuntu Mono, monospace"
+                  </Alert>
+                </Grid>
+                <Grid item>
+                  <Grid
+                    container
+                    flexDirection="row"
+                    alignItems="flex-start"
+                    flexWrap="nowrap"
                   >
-                    Apply
-                  </Button>
-                  <Snackbar
-                    open={alertOptions.open}
-                    autoHideDuration={6000}
-                    onClose={() => {
-                      setAlertOptions((old) => {
-                        return { ...old, open: false };
-                      });
-                    }}
-                  >
-                    <Alert
-                      severity={alertOptions[alertOptions.type].severity}
-                      onClose={() => {
-                        setAlertOptions((old) => {
-                          return { ...old, open: false };
-                        });
-                      }}
-                      sx={{ width: "100%" }}
-                    >
-                      {alertOptions[alertOptions.type].message}
-                    </Alert>
-                  </Snackbar>
+                    <Grid item></Grid>
+                    <Grid item>
+                      <Box component="form" noValidate autoComplete="off">
+                        <TextField
+                          id="MUICustomFontsInput"
+                          multiline
+                          placeholder="font url(s)"
+                          helperText="Adds given font links (e.g., Google webfont links) to the html head. Separate multiple links with a pipe ('|')"
+                        />
+                      </Box>
+                    </Grid>
+                    <Grid item>
+                      <Button
+                        variant="contained"
+                        sx={{ ml: 2 }}
+                        onClick={handleCustomFontsChange}
+                      >
+                        Apply
+                      </Button>
+                      <Snackbar
+                        open={alertOptions.open}
+                        autoHideDuration={6000}
+                        onClose={() => {
+                          setAlertOptions((old) => {
+                            return { ...old, open: false };
+                          });
+                        }}
+                      >
+                        <Alert
+                          severity={alertOptions[alertOptions.type].severity}
+                          onClose={() => {
+                            setAlertOptions((old) => {
+                              return { ...old, open: false };
+                            });
+                          }}
+                          sx={{ width: "100%" }}
+                        >
+                          {alertOptions[alertOptions.type].message}
+                        </Alert>
+                      </Snackbar>
+                    </Grid>
+                  </Grid>
                 </Grid>
               </Grid>
             </AccordionDetails>
