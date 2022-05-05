@@ -42,8 +42,7 @@ function ThemeCustomizer(props) {
         });
       }
       newTheme = mergeThemes(options);
-      console.log("theme based on the theme object ", newTheme);
-
+      console.log("new theme using the given theme object: ", newTheme);
       return {
         theme: newTheme,
       };
@@ -60,16 +59,15 @@ function ThemeCustomizer(props) {
 }
 
 ThemeCustomizer.propTypes = {
-  // /**
-  //  * The label of the button.
-  //  * @uxpinpropname Label
-  //  * */
+  /**
+   * @uxpinignoreprop
+   * */
   // children: PropTypes.node,
 
-  // /**
-  //  * The color theme. Overrides any theme properties in parents if specified
-  //  * @uxpinpropname theme
-  //  */
+  /**
+   * The color theme. Overrides any theme properties in parents if specified
+   * @uxpinpropname theme
+   */
   // themeProfile: PropTypes.oneOf(["light", "dark", "hacker"]),
 
   /**
@@ -83,28 +81,28 @@ ThemeCustomizer.propTypes = {
    */
   deleteCustomFonts: PropTypes.bool,
 
-  // /**
-  //  * Disables the ripple effect.
-  //  */
+  /**
+   * Disables the ripple effect.
+   */
   // disableRipple: PropTypes.bool,
 
-  // /**
-  //  * Changes the primary color.
-  //  */
-  // palette_primary: PropTypes.string,
+  /**
+   * Changes the primary color.
+   */
+  // primary: PropTypes.string,
 
-  // /**
-  //  * Changes the secondary color.
-  //  */
-  // palette_secondary: PropTypes.string,
+  /**
+   * Changes the secondary color.
+   */
+  // secondary: PropTypes.string,
 
-  // /**
-  //  * Changes the global border radius.
-  //  */
+  /**
+   * Changes the global border radius.
+   */
   // borderRadius: PropTypes.string,
 
   /**
-   * Add a theme object here, if you have one already. Missing properties will be calculated automatically. Works only when the default theme is selected. Format has to be JSON.
+   * Add a theme object here, if you have one already. Missing properties will be calculated automatically. Works only when the default theme is selected
    */
   themeObject: PropTypes.object,
 };

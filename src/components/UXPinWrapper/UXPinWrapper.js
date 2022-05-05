@@ -1,6 +1,5 @@
-// eslint-disable-next-line no-unused-vars
 import React from "react";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { createTheme } from "@mui/material/styles";
 import defaultTheme from "./default-theme";
 import ThemeProviderHelper from "../../theming/utils/ThemeProviderHelper";
 
