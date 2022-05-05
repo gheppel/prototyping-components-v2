@@ -8,7 +8,6 @@ module.exports = {
           "src/components/ThemeSwitcherGeneral/ThemeSwitcherGeneral.js",
           "src/components/ThemeSwitcherColor/ThemeSwitcherColor.js",
           "src/components/ThemeSwitcherFont/ThemeSwitcherFont.js",
-          "src/components/ThemeGenerator/ThemeGenerator.js",
         ],
       },
       {
