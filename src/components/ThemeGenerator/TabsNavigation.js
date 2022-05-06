@@ -95,6 +95,26 @@ export default function BasicTabs() {
         <TabPanel value={value} index={2}>
           <Fonts></Fonts>
         </TabPanel>
+        <TabPanel value={value} index={3}>
+          <Box sx={{ p: 4 }}>
+            <Typography variant="subtitle1">Coming Soon :)</Typography>
+          </Box>
+        </TabPanel>
+        <TabPanel value={value} index={4}>
+          <Box sx={{ p: 4 }}>
+            <Typography variant="subtitle1">Coming Soon :)</Typography>
+          </Box>
+        </TabPanel>
+        <TabPanel value={value} index={5}>
+          <Box sx={{ p: 4 }}>
+            <Typography variant="subtitle1">Coming Soon :)</Typography>
+          </Box>
+        </TabPanel>
+        <TabPanel value={value} index={6}>
+          <Box sx={{ p: 4 }}>
+            <Typography variant="subtitle1">Coming Soon :)</Typography>
+          </Box>
+        </TabPanel>
       </Box>
     </Box>
   );

@@ -2,96 +2,78 @@ import React from "react";
 import { mergeThemes } from "../../theming/utils/mergeThemes";
 import { Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import { Paper } from "@mui/material";
-import { Grid } from "@mui/material";
+import { Paper, Grid, createTheme } from "@mui/material";
 import CopyThemeButton from "./CopyThemeButton";
 import SettingsPanel from "./SettingsPanel";
 import { ThemeProvider } from "@mui/material/styles";
 import LiveViewDummy from "./LiveViewDummy";
 import ResetButton from "./ResetButton";
 import PropTypes from "prop-types";
+import evaluateThemeObj from "../../theming/utils/evaluateThemeObj";
 
 export const ThemeGeneratorContext = React.createContext({});
-// let computedTheme = mergeThemes({ resetTheme: true });
 
 function ThemeGenerator(props) {
-  const [themeProps, setThemeProps] = React.useState({});
+  const [themeProps, setThemeProps] = React.useState(() => {
+    const localProps = localStorage.getItem("MUIdS_themeProps");
+    //return local props if there are any, otherwise return an empty object
+    return localProps !== null ? JSON.parse(localProps) : {};
+  });
   const [theme, setTheme] = React.useState(() => {
-    //   //init theme from localStorage
-    //   // let localTheme = localStorage.getItem("MUIdS_theme");
-    //   // // console.log("local theme is", localTheme);
-    //   // if (localTheme) {
-    //   //   //theme exists already
-    //   //   // console.log(JSON.parse(localTheme));
-    //   //   return JSON.parse(localTheme);
-    //   // } else {
-    //   //
-    // console.log("first load or storage was cleared, get default theme");
-    return mergeThemes({ resetTheme: true });
-    // }
+    const localTheme = localStorage.getItem("MUIdS_theme");
+    if (localTheme !== null) {
+      //there is a theme already, load it
+      const parsedLocalTheme = evaluateThemeObj(localTheme);
+      if (parsedLocalTheme.passed) {
+        //theme was parsed
+        // console.log("loading local theme", parsedLocalTheme.theme);
+        return createTheme(parsedLocalTheme.theme);
+      } else {
+        //theme seems to be broken, get default instead
+        // console.log("loading default theme");
+        return mergeThemes({ resetTheme: true });
+      }
+    } else {
+      // console.log("loading default theme");
+      return mergeThemes({ resetTheme: true });
+    }
   });
   const [reset, triggerReset] = React.useState(false);
-  const [pickers, setPickers] = React.useState({});
-  // const [defaultThemes, setDefaultThemes] = React.useState({
-  //   light: createTheme({ palette: { mode: "light" } }),
-  //   dark: createTheme({ palette: { mode: "dark" } }),
-  // });
-  // const updateThemeProps = (newThemeProps) => {
-  //   //merge new themeProps with old themeProps
-  //   setThemeProps((oldThemeProps) => {
-  //     let mergedProps = { ...oldThemeProps, ...newThemeProps };
-  //     return { ...mergedProps };
-  //   });
-  // };
 
   React.useEffect(() => {
     console.log("new props", themeProps);
-    // console.log("new theme: ", mergeThemes(themeProps));
-    // if (themeProps.resetTheme) {
-    //   //reset theme
-    //   setTheme(mergeThemes({ resetTheme: true }));
-    // } else {
-    //   setTheme(mergeThemes({ ...themeProps }));
-    // }
-    // let newTheme = createTheme(themeProps);
+
     if (Object.keys(themeProps).length > 0) {
-      //WORKS!!!
-
-      // setTheme((oldTheme) => {
-      //   let newTheme = createTheme(themeProps);
-      //   console.log("old theme was ", oldTheme);
-      //   console.log("new theme should be ", newTheme);
-      //   return newTheme;
-      // });
-
-      // ####
       if (themeProps.resetTheme) {
         //reset theme
         setTheme(mergeThemes({ resetTheme: true }));
         triggerReset(true);
         setThemeProps({});
+        localStorage.removeItem("MUIdS_theme");
+        localStorage.removeItem("MUIdS_themeProps");
       } else {
         setTheme((oldTheme) => {
           let newTheme = mergeThemes(themeProps);
-          console.log("old theme was ", oldTheme);
-          console.log("new theme should be ", newTheme);
+          // console.log("old theme was ", oldTheme);
+          // console.log("new theme should be ", newTheme);
           return newTheme;
         });
+        localStorage.setItem("MUIdS_themeProps", JSON.stringify(themeProps));
       }
     }
   }, [themeProps]);
   React.useEffect(() => {
-    // computedTheme = theme;
-    console.log("theme state was updated", theme);
+    // console.log("theme state was updated", theme);
     //save to lS if new
-    // let currentLocalTheme = localStorage.getItem("MUIdS_theme");
-    // if (currentLocalTheme !== JSON.stringify(theme)) {
-    //   localStorage.setItem("MUIdS_theme", JSON.stringify(theme));
-    // }
+    let currentLocalTheme = localStorage.getItem("MUIdS_theme");
+
+    if (currentLocalTheme !== JSON.stringify(theme)) {
+      localStorage.setItem("MUIdS_theme", JSON.stringify(theme));
+    }
   }, [theme]);
   React.useEffect(() => {
     if (reset) {
-      console.log("reset was triggered");
+      // console.log("reset was triggered");
       triggerReset(false);
     }
   }, [reset]);
@@ -131,10 +113,7 @@ function ThemeGenerator(props) {
                   </Typography>
                 </Grid>
                 <Grid item mr={4}>
-                  <ResetButton
-                    buttonVariant="contained"
-                    buttonLabel="reset theme object"
-                  />
+                  <ResetButton buttonVariant="contained" buttonLabel="reset" />
                 </Grid>
                 <Grid
                   item
@@ -145,7 +124,7 @@ function ThemeGenerator(props) {
                 >
                   <CopyThemeButton
                     buttonVariant="contained"
-                    buttonLabel="copy theme object"
+                    buttonLabel="copy theme"
                   />
                 </Grid>
               </Grid>

@@ -1,19 +1,54 @@
 import React from "react";
 import { ThemeGeneratorContext } from "./ThemeGenerator";
 import { Box } from "@mui/system";
-import MenuItem from "@mui/material/MenuItem";
 import BasicSelect from "./BasicSelect";
 import BasicTextField from "./BasicTextfield";
-import { Grid } from "@mui/material";
-import { Alert, AlertTitle } from "@mui/material";
+import {
+  Alert,
+  AlertTitle,
+  TextField,
+  MenuItem,
+  Grid,
+  createTheme,
+} from "@mui/material";
+import evaluateThemeObj from "../../theming/utils/evaluateThemeObj";
 
 function Settings(props) {
   const [themeProps, setThemeProps, theme, setTheme] = React.useContext(
     ThemeGeneratorContext
   );
+  const [themeObject, setThemeObject] = React.useState("");
+  const [stateProps, setStateProps] = React.useState({
+    error: false,
+    helperText: "Paste a MUI theme object (JSON) here, if you have one already",
+  });
+
+  function handleThemeObjectChange(event) {
+    const value = event.target.value;
+    setThemeObject(value);
+
+    if (value !== undefined && value !== "") {
+      //not empty
+
+      const result = evaluateThemeObj(value);
+      if (result.passed) {
+        setStateProps({ error: false, helperText: result.message });
+        setThemeProps((other) => {
+          return { ...other, themeObject: createTheme(result.theme) };
+        });
+      } else {
+        setStateProps({ error: true, helperText: result.message });
+      }
+    } else {
+      setStateProps({
+        error: false,
+        helperText: "Paste a MUI theme object here, if you have one already",
+      });
+    }
+  }
   return (
     <Grid container flexWrap="nowrap" flexDirection="column">
-      <Grid item>
+      {/* <Grid item>
         <Box sx={{ m: 2 }}>
           <Alert severity="error">
             <AlertTitle>Don't use enter</AlertTitle>
@@ -21,6 +56,26 @@ function Settings(props) {
             textfields, as this will reload the page and all progress will be
             lost
           </Alert>
+        </Box>
+      </Grid> */}
+      <Grid item>
+        <Box
+          component="form"
+          noValidate
+          autoComplete="off"
+          sx={{ my: 2, ml: 2 }}
+        >
+          <TextField
+            id="MUIThemeObjectInput"
+            multiline
+            placeholder="{palette: {...}, ...}"
+            label="MUI Theme Object"
+            helperText={stateProps.helperText}
+            error={stateProps.error}
+            maxRows="4"
+            onChange={handleThemeObjectChange}
+            value={themeObject}
+          />
         </Box>
       </Grid>
       <Grid item>

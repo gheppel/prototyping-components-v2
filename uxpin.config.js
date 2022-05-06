@@ -3,13 +3,7 @@ module.exports = {
     categories: [
       {
         name: "Theme Switcher",
-        include: [
-          "src/components/ThemeCustomizer/ThemeCustomizer.js",
-          "src/components/ThemeSwitcherGeneral/ThemeSwitcherGeneral.js",
-          "src/components/ThemeSwitcherColor/ThemeSwitcherColor.js",
-          "src/components/ThemeSwitcherFont/ThemeSwitcherFont.js",
-          "src/components/ThemeGenerator/ThemeGenerator.js",
-        ],
+        include: ["src/components/ThemeGenerator/ThemeGenerator.js"],
       },
       {
         name: "Buttons",
