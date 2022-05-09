@@ -1,17 +1,26 @@
 import React from "react";
 import { mergeThemes } from "../../theming/utils/mergeThemes";
-import { Typography } from "@mui/material";
+import evaluateThemeObj from "../../theming/utils/evaluateThemeObj";
 import { Box } from "@mui/system";
-import { Paper, Grid, createTheme } from "@mui/material";
+import { Paper, Grid, Typography } from "@mui/material";
+import LiveViewDummy from "./LiveViewDummy";
 import CopyThemeButton from "./CopyThemeButton";
 import SettingsPanel from "./SettingsPanel";
-import { ThemeProvider } from "@mui/material/styles";
-import LiveViewDummy from "./LiveViewDummy";
 import ResetButton from "./ResetButton";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
 import PropTypes from "prop-types";
-import evaluateThemeObj from "../../theming/utils/evaluateThemeObj";
+import { ThemeContext } from "../UXPinWrapper/UXPinWrapper";
 
 export const ThemeGeneratorContext = React.createContext({});
+
+const addFont = (link, index) => {
+  let newFontLink = document.createElement("link");
+  newFontLink.href = link;
+  newFontLink.rel = "stylesheet";
+  newFontLink.id = "muiCCustomFont" + index;
+  document.head.appendChild(newFontLink);
+  //console.log("added: ", newFontLink);
+};
 
 function ThemeGenerator(props) {
   const [themeProps, setThemeProps] = React.useState(() => {
@@ -39,10 +48,23 @@ function ThemeGenerator(props) {
     }
   });
   const [reset, triggerReset] = React.useState(false);
+  const [themeOptions, setThemeOptions] = React.useContext(ThemeContext);
+
+  if (props.customFonts && props.customFonts !== "") {
+    props.customFonts.split("|").forEach((font, index) => {
+      if (document.querySelectorAll("link[href='" + font + "']").length === 0) {
+        addFont(font, index);
+      }
+    });
+  }
+  if (props.deleteCustomFonts === true) {
+    document
+      .querySelectorAll("link[id*='muiCCustomFont']")
+      .forEach((font) => font.remove());
+  }
 
   React.useEffect(() => {
-    console.log("new props", themeProps);
-
+    //what to do if there are any themeProps
     if (Object.keys(themeProps).length > 0) {
       if (themeProps.resetTheme) {
         //reset theme
@@ -62,8 +84,9 @@ function ThemeGenerator(props) {
       }
     }
   }, [themeProps]);
+
+  //saving the theme to local storage
   React.useEffect(() => {
-    // console.log("theme state was updated", theme);
     //save to lS if new
     let currentLocalTheme = localStorage.getItem("MUIdS_theme");
 
@@ -71,12 +94,34 @@ function ThemeGenerator(props) {
       localStorage.setItem("MUIdS_theme", JSON.stringify(theme));
     }
   }, [theme]);
+
+  //resetting triggerReset
   React.useEffect(() => {
     if (reset) {
-      // console.log("reset was triggered");
       triggerReset(false);
     }
   }, [reset]);
+
+  //updating the UXPinWrapper theme with props.themeObject
+  React.useEffect(() => {
+    setThemeOptions((oldTheme) => {
+      let options = { ...props };
+
+      let newTheme;
+      //if there is a theme object given, it will be the basis for any customizations
+      if (props.themeObject && props.themeObject !== "") {
+        options.themeObject = createTheme({
+          ...JSON.parse(JSON.stringify(props.themeObject)),
+        });
+      }
+      newTheme = mergeThemes(options);
+      // console.log("new theme using the given theme object: ", newTheme);
+      return {
+        theme: newTheme,
+      };
+    });
+  }, [props, setThemeOptions, themeOptions.themeCustomizerProps]);
+
   return (
     <ThemeGeneratorContext.Provider
       value={[themeProps, setThemeProps, theme, setTheme, reset]}
@@ -234,5 +279,21 @@ ThemeGenerator.propTypes = {
    * @uxpinignoreprop
    * */
   children: PropTypes.node,
+
+  /**
+   * Adds given font links (e.g., Google webfont links) to the html head. Separate multiple links with a pipe ("|")
+   * @uxpincontroltype textfield(3)
+   */
+  customFonts: PropTypes.string,
+
+  /**
+   * Deletes all custom font links (e.g., Google webfont links) from the html head.
+   */
+  deleteCustomFonts: PropTypes.bool,
+
+  /**
+   * Add a theme object here, if you have one already. Missing properties will be calculated automatically. Works only when the default theme is selected
+   */
+  themeObject: PropTypes.object,
 };
 export default ThemeGenerator;

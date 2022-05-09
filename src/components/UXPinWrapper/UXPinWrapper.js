@@ -53,8 +53,9 @@ export default function UXPinWrapper(props) {
     //updates the component state to a given theme
     const onThemeChange = (newTheme) => {
       setTheme(newTheme);
+      console.log("wrapper updated itself to ", newTheme, props.children);
     };
-    console.log(theme);
+
     //the component adds a function to the listener array, which allows to update its state with a given theme
     addListener(onThemeChange);
     //the listener is removed when the component unmounts (is deleted from the canvas)
@@ -63,7 +64,7 @@ export default function UXPinWrapper(props) {
 
   return (
     <ThemeContext.Provider value={[theme, setThemeOptions]}>
-      <ThemeProviderHelper currentTheme={themeOptions.theme}>
+      <ThemeProviderHelper themeObject={themeOptions.theme}>
         {props.children}
       </ThemeProviderHelper>
     </ThemeContext.Provider>
