@@ -2,7 +2,7 @@ module.exports = {
   components: {
     categories: [
       {
-        name: "Theme Switcher",
+        name: "Theme Customizing",
         include: ["src/components/ThemeGenerator/ThemeGenerator.js"],
       },
       {

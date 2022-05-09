@@ -121,7 +121,7 @@ function ThemeGenerator(props) {
       };
     });
   }, [props, setThemeOptions, themeOptions.themeCustomizerProps]);
-
+  console.log(theme);
   return (
     <ThemeGeneratorContext.Provider
       value={[themeProps, setThemeProps, theme, setTheme, reset]}
@@ -190,6 +190,8 @@ function ThemeGenerator(props) {
                   sx={{ resize: "horizontal", overflow: "auto" }}
                   // width="50%"
                   maxHeight="100%"
+                  maxWidth="1300px"
+                  width="50%"
                 >
                   <Paper sx={{ height: "100%", width: "100%" }} elevation={2}>
                     <Box

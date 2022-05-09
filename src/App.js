@@ -36,7 +36,6 @@ function App() {
     <div className="App">
       <UXPinWrapper>
         <Box sx={{ height: "100vh", width: "100vw" }}>
-          {" "}
           <ThemeGenerator />
         </Box>
       </UXPinWrapper>

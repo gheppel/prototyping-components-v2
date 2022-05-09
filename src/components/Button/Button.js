@@ -32,12 +32,6 @@ Button.propTypes = {
   children: PropTypes.node,
 
   /**
-   * The color theme specific to this component. Overrides any theme properties in parents if specified
-   * * @uxpinpropname theme
-   */
-  themeProfile: PropTypes.oneOf(themeProfiles),
-
-  /**
    * The color of the button.
    */
   color: PropTypes.oneOf([

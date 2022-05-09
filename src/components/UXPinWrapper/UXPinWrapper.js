@@ -38,7 +38,7 @@ const setThemeOptions = (callback) => {
   //the callback function is called and given the old theme as a parameter
   //the result of the callback function is saved in themeOptions (the new theme)
   themeOptions = callback(themeOptions);
-  console.log("theme was updated");
+  // console.log("theme was updated");
   //each listener is a function which sets the theme in the state of its UXPinWrapper component to a given theme
   //each function (listener) is executed with the given theme as a parameter, so all UXPinWrapper instances are updated with the same theme
   listeners.forEach((listener) => {

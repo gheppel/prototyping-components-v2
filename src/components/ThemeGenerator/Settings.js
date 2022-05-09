@@ -48,16 +48,6 @@ function Settings(props) {
   }
   return (
     <Grid container flexWrap="nowrap" flexDirection="column">
-      {/* <Grid item>
-        <Box sx={{ m: 2 }}>
-          <Alert severity="error">
-            <AlertTitle>Don't use enter</AlertTitle>
-            Please refrain from using the enter key after entering values into
-            textfields, as this will reload the page and all progress will be
-            lost
-          </Alert>
-        </Box>
-      </Grid> */}
       <Grid item>
         <Box
           component="form"

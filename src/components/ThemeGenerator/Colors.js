@@ -52,8 +52,8 @@ function Colors(props) {
   };
   // const generalProperties = ["divider", "tonalOffset", "contrastThreshold"];
   return (
-    <Grid container>
-      <Grid item>
+    <Grid container flexDirection="column">
+      <Grid item maxWidth="1250px">
         <Box sx={{ m: 2 }}>
           <Alert severity="info">
             <AlertTitle>Main Colors</AlertTitle>If not specified, light, dark
@@ -63,7 +63,7 @@ function Colors(props) {
         </Box>
       </Grid>
       {Object.keys(colorProps).map((colorProp, i) => (
-        <Grid item width="max-content" key={i}>
+        <Grid item width="100%" key={i} maxWidth="1250px">
           <ColorsSection title={colorProp} type="main" variant={colorProp}>
             {colorProps[colorProp]}
           </ColorsSection>

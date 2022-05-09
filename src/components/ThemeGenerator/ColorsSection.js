@@ -70,7 +70,7 @@ function ColorsSection(props) {
                             props.variant +
                             " color"
                           }
-                          width="180px"
+                          width="216px"
                         />
                       </Grid>
                       <Grid item pt="16px" ml={2}>
@@ -120,7 +120,7 @@ function ColorsSection(props) {
                                 props.variant +
                                 " color"
                           }
-                          width="180px"
+                          width="216px"
                         />
                       </Grid>
                       {childSplit[0] === "divider" ? (
