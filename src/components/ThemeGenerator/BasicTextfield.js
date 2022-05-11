@@ -61,7 +61,7 @@ function BasicTextField(props) {
   }
 
   function handleChange(source, eventOrRgba) {
-    console.log(source, eventOrRgba);
+    // console.log(source, eventOrRgba);
 
     if (props.type === "color") {
       if (source === "textField") {

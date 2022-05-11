@@ -120,8 +120,8 @@ function ThemeGenerator(props) {
         theme: newTheme,
       };
     });
-  }, [props, setThemeOptions, themeOptions.themeCustomizerProps]);
-  console.log(theme);
+  }, [props, setThemeOptions]);
+
   return (
     <ThemeGeneratorContext.Provider
       value={[themeProps, setThemeProps, theme, setTheme, reset]}
