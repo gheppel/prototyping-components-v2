@@ -53,7 +53,6 @@ export default function UXPinWrapper(props) {
     //updates the component state to a given theme
     const onThemeChange = (newTheme) => {
       setTheme(newTheme);
-      console.log("wrapper updated itself to ", newTheme, props.children);
     };
 
     //the component adds a function to the listener array, which allows to update its state with a given theme
