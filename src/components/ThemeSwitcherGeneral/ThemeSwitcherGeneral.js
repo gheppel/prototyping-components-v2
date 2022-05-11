@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import ThemeProviderHelper from "../../theming/utils/ThemeProviderHelper";
-import { themeProfiles } from "../../theming/utils/themeCustomization";
 import { useTheme } from "@mui/material/styles";
 import { Typography } from "@mui/material";
 function ThemeSwitcherGeneral(props) {
@@ -27,8 +26,7 @@ function ThemeSwitcherGeneral(props) {
     </ThemeProviderHelper>
   );
 }
-// console.log(themeProfiles);
-const themes = themeProfiles;
+
 ThemeSwitcherGeneral.propTypes = {
   /**
    * The label of the button.
