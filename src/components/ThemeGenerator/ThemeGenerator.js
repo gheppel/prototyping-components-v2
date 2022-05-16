@@ -104,10 +104,10 @@ function ThemeGenerator(props) {
 
   //updating the UXPinWrapper theme with props.themeObject
   React.useEffect(() => {
+    let newTheme;
     setThemeOptions((oldTheme) => {
       let options = { ...props };
 
-      let newTheme;
       //if there is a theme object given, it will be the basis for any customizations
       if (props.themeObject && props.themeObject !== "") {
         options.themeObject = createTheme({
@@ -116,11 +116,12 @@ function ThemeGenerator(props) {
       }
       newTheme = mergeThemes(options);
       // console.log("new theme using the given theme object: ", newTheme);
+      setTheme(newTheme);
       return {
         theme: newTheme,
       };
     });
-  }, [props, setThemeOptions]);
+  }, [props.themeObject, setThemeOptions]);
 
   return (
     <ThemeGeneratorContext.Provider
