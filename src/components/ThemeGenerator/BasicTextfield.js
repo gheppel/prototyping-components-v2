@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 import { decomposeColor } from "@mui/system/esm/colorManipulator";
 import { RgbaStringColorPicker } from "react-colorful";
 import { Popper, Paper, TextField, ClickAwayListener } from "@mui/material";
+import validateColor from "../../theming/utils/validateColor";
 const rgba = require("rgba-convert");
 
 // color picker: https://github.com/Simonwep/pickr
@@ -44,6 +45,7 @@ function BasicTextField(props) {
     helperText: props.helperText,
   });
   const [popperOpen, setPopperOpen] = React.useState(false);
+  const [lastActionFrom, updateLastActionTo] = React.useState("");
 
   function isAColor(color) {
     try {
@@ -58,22 +60,35 @@ function BasicTextField(props) {
     const converted = rgba.hex(color);
     setPickerColor(color);
     setValue(converted);
+    updateLastActionTo("colorPicker");
   }
 
   function handleChange(source, eventOrRgba) {
-    // console.log(source, eventOrRgba);
+    // console.log("source: ", source, "eventorrgba ", eventOrRgba);
 
     if (props.type === "color") {
       if (source === "textField") {
+        updateLastActionTo("textField");
+
         //might be broken, HEX, RGB, RGBA or something else
-        const color = eventOrRgba.target.value;
+        let color;
+        if (typeof eventOrRgba === "object") {
+          //is an event
+          color = eventOrRgba.target.value;
+        } else if (typeof eventOrRgba === "string") {
+          //is a color code
+          color = eventOrRgba;
+        }
 
         //check the value
-        if (isAColor(color)) {
+
+        if (isAColor(color) && validateColor(color)) {
           setValue(color);
           setThemeProps((oldProps) => {
             return { ...oldProps, [props.themeProp]: color };
           });
+          const converted = rgba.css(color);
+          setPickerColor(converted);
           //reset any error messages
           setStateProps({ error: false, helperText: props.helperText });
         } else {
@@ -83,11 +98,12 @@ function BasicTextField(props) {
         }
       } else if (source === "colorPicker") {
         //should be RGBA
-        const color = eventOrRgba;
+        //convert to hex
+        const converted = rgba.hex(eventOrRgba);
 
         // setValue(color);
         setThemeProps((oldProps) => {
-          return { ...oldProps, [props.themeProp]: color };
+          return { ...oldProps, [props.themeProp]: converted };
         });
         //reset any error messages
         setStateProps({ error: false, helperText: props.helperText });
@@ -95,6 +111,7 @@ function BasicTextField(props) {
     } else {
       //not a color, should be an event
       setValue(eventOrRgba.target.value);
+      console.log("setting theme to", eventOrRgba.target.value);
       setThemeProps((oldProps) => {
         return { ...oldProps, [props.themeProp]: eventOrRgba.target.value };
       });
@@ -118,13 +135,16 @@ function BasicTextField(props) {
   function handleClickAway() {
     if (pickerColor !== "" && pickerColor && popperOpen === true) {
       //a picker color was chosen and the popper closed
-      handleChange("colorPicker", pickerColor);
+      handleChange(
+        lastActionFrom,
+        lastActionFrom === "textField" ? value : pickerColor
+      );
       setPopperOpen(false);
     }
   }
 
   return (
-    <ClickAwayListener onClickAway={handleClickAway}>
+    <ClickAwayListener onClickAway={handleClickAway} mouseEvent="onMouseDown">
       <Box
         component="form"
         sx={{ my: 2, ml: 2, width: props.width }}

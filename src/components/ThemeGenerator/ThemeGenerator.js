@@ -74,6 +74,7 @@ function ThemeGenerator(props) {
         localStorage.removeItem("MUIdS_theme");
         localStorage.removeItem("MUIdS_themeProps");
       } else {
+        // console.log("new props: ", themeProps);
         setTheme((oldTheme) => {
           let newTheme = mergeThemes(themeProps);
           // console.log("old theme was ", oldTheme);
@@ -89,7 +90,7 @@ function ThemeGenerator(props) {
   React.useEffect(() => {
     //save to lS if new
     let currentLocalTheme = localStorage.getItem("MUIdS_theme");
-
+    // console.log("theme was updated to ", theme);
     if (currentLocalTheme !== JSON.stringify(theme)) {
       localStorage.setItem("MUIdS_theme", JSON.stringify(theme));
     }

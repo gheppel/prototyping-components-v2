@@ -12,6 +12,7 @@ import {
   createTheme,
 } from "@mui/material";
 import evaluateThemeObj from "../../theming/utils/evaluateThemeObj";
+import { themes } from "../../theming/utils/themeCustomization";
 
 function Settings(props) {
   const [themeProps, setThemeProps, theme, setTheme] = React.useContext(
@@ -78,9 +79,16 @@ function Settings(props) {
               themeProp="themeProfile"
             >
               <MenuItem value={"default"}>default</MenuItem>
-              <MenuItem value={"light"}>light</MenuItem>
+              {/* <MenuItem value={"light"}>light</MenuItem>
               <MenuItem value={"dark"}>dark</MenuItem>
-              <MenuItem value={"hacker"}>hacker</MenuItem>
+              <MenuItem value={"hacker"}>hacker</MenuItem> */}
+              {themes.themes.map((theme, i) => {
+                return (
+                  <MenuItem value={theme.name} key={i}>
+                    {theme.name}
+                  </MenuItem>
+                );
+              })}
             </BasicSelect>
           </Grid>
           <Grid item>

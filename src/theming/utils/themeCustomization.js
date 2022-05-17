@@ -2,6 +2,7 @@ import hacker from "../../theming/themes/hacker";
 import dark from "../../theming/themes/dark";
 import light from "../../theming/themes/light";
 import defaultTheme from "../../components/UXPinWrapper/default-theme";
+import flat from "../themes/flat";
 
 //lists all available themes and default
 export const themes = {
@@ -9,6 +10,7 @@ export const themes = {
     { name: "dark", data: dark },
     { name: "light", data: light },
     { name: "hacker", data: hacker },
+    { name: "flat", data: flat },
   ],
   default: { name: "default", data: defaultTheme },
 };

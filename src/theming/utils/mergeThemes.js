@@ -276,14 +276,14 @@ function mergeThemes(props) {
           propsToCheck.forEach((prop) => {
             let currentProp = variant + "_" + prop;
             if (props[currentProp] && props[currentProp] !== 0) {
-              console.log("detected ", currentProp);
+              // console.log("detected ", currentProp);
               currentTheme.typography[variant][prop] = props[currentProp];
-              console.log(
-                "set theme for ",
-                currentProp,
-                " to ",
-                currentTheme.typography[variant][prop]
-              );
+              // console.log(
+              //   "set theme for ",
+              //   currentProp,
+              //   " to ",
+              //   currentTheme.typography[variant][prop]
+              // );
             }
           });
         });
@@ -304,7 +304,7 @@ function mergeThemes(props) {
     const chosenTheme = createTheme(getThemeData(props.themeProfile));
 
     //merge any custom properties into it
-    console.log("chosenTheme", chosenTheme);
+    // console.log("chosenTheme", chosenTheme);
     const customizedTheme = customizeTheme(chosenTheme);
     return customizedTheme;
   } else if (props.themeObject !== undefined && props.themeObject !== "") {
