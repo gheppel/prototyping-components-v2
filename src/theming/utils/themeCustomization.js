@@ -3,6 +3,7 @@ import dark from "../../theming/themes/dark";
 import light from "../../theming/themes/light";
 import defaultTheme from "../../components/UXPinWrapper/default-theme";
 import flat from "../themes/flat";
+import neumorphism from "../themes/neumorphism";
 
 //lists all available themes and default
 export const themes = {
@@ -11,6 +12,7 @@ export const themes = {
     { name: "light", data: light },
     { name: "hacker", data: hacker },
     { name: "flat", data: flat },
+    { name: "neumorphism", data: neumorphism },
   ],
   default: { name: "default", data: defaultTheme },
 };

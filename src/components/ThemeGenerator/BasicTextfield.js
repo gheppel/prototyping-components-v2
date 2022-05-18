@@ -111,7 +111,7 @@ function BasicTextField(props) {
     } else {
       //not a color, should be an event
       setValue(eventOrRgba.target.value);
-      console.log("setting theme to", eventOrRgba.target.value);
+      // console.log("setting theme to", eventOrRgba.target.value);
       setThemeProps((oldProps) => {
         return { ...oldProps, [props.themeProp]: eventOrRgba.target.value };
       });
