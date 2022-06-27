@@ -19,7 +19,6 @@ const addFont = (link, index) => {
   newFontLink.rel = "stylesheet";
   newFontLink.id = "muiCCustomFont" + index;
   document.head.appendChild(newFontLink);
-  //console.log("added: ", newFontLink);
 };
 
 function ThemeGenerator(props) {
@@ -35,15 +34,12 @@ function ThemeGenerator(props) {
       const parsedLocalTheme = evaluateThemeObj(localTheme);
       if (parsedLocalTheme.passed) {
         //theme was parsed
-        // console.log("loading local theme", parsedLocalTheme.theme);
         return createTheme(parsedLocalTheme.theme);
       } else {
         //theme seems to be broken, get default instead
-        // console.log("loading default theme");
         return mergeThemes({ resetTheme: true });
       }
     } else {
-      // console.log("loading default theme");
       return mergeThemes({ resetTheme: true });
     }
   });
@@ -74,11 +70,8 @@ function ThemeGenerator(props) {
         localStorage.removeItem("MUIdS_theme");
         localStorage.removeItem("MUIdS_themeProps");
       } else {
-        // console.log("new props: ", themeProps);
         setTheme((oldTheme) => {
           let newTheme = mergeThemes(themeProps);
-          // console.log("old theme was ", oldTheme);
-          // console.log("new theme should be ", newTheme);
           return newTheme;
         });
         localStorage.setItem("MUIdS_themeProps", JSON.stringify(themeProps));
@@ -90,7 +83,6 @@ function ThemeGenerator(props) {
   React.useEffect(() => {
     //save to lS if new
     let currentLocalTheme = localStorage.getItem("MUIdS_theme");
-    // console.log("theme was updated to ", theme);
     if (currentLocalTheme !== JSON.stringify(theme)) {
       localStorage.setItem("MUIdS_theme", JSON.stringify(theme));
     }
@@ -116,7 +108,6 @@ function ThemeGenerator(props) {
         });
       }
       newTheme = mergeThemes(options);
-      // console.log("new theme using the given theme object: ", newTheme);
       setTheme(newTheme);
       return {
         theme: newTheme,
@@ -186,11 +177,8 @@ function ThemeGenerator(props) {
                 <Grid
                   item
                   flexGrow="1"
-                  // pl={2}
-                  // pr={1}
                   p={2}
                   sx={{ resize: "horizontal", overflow: "auto" }}
-                  // width="50%"
                   maxHeight="100%"
                   maxWidth="1300px"
                   width="50%"
@@ -200,8 +188,6 @@ function ThemeGenerator(props) {
                       height="100%"
                       width="100%"
                       overflow="scroll"
-                      // pl={2}
-                      // pr={1}
                       sx={{
                         "&::-webkit-scrollbar": {
                           width: "8px",
@@ -224,22 +210,12 @@ function ThemeGenerator(props) {
                   </Paper>
                 </Grid>
                 {/* LiveView */}
-                <Grid
-                  item
-                  flexGrow="1"
-                  ml={1}
-                  mr={2}
-                  mb={2}
-                  mt={2}
-                  // maxWidth="50%"
-                >
+                <Grid item flexGrow="1" ml={1} mr={2} mb={2} mt={2}>
                   <Paper sx={{ height: "100%", width: "100%" }} elevation={2}>
                     <Box
                       height="100%"
                       width="100%"
                       overflow="scroll"
-                      // pl={2}
-                      // pr={1}
                       sx={{
                         "&::-webkit-scrollbar": {
                           width: "8px",

@@ -8,8 +8,6 @@ import { Popper, Paper, TextField, ClickAwayListener } from "@mui/material";
 import validateColor from "../../theming/utils/validateColor";
 const rgba = require("rgba-convert");
 
-// color picker: https://github.com/Simonwep/pickr
-
 function BasicTextField(props) {
   const [themeProps, setThemeProps, theme, , reset] = React.useContext(
     ThemeGeneratorContext
@@ -29,10 +27,8 @@ function BasicTextField(props) {
   });
   const [pickerColor, setPickerColor] = React.useState(() => {
     if (props.type === "color") {
-      // console.log(props.defaultValue);
       //props.defaultValue might be HEX or RGBA or something else
       //convert to rgba
-      // const convertedColor = convertToHex(props.defaultValue);
       const convertedColor = rgba.css(props.defaultValue);
       return convertedColor;
     } else {
@@ -64,8 +60,6 @@ function BasicTextField(props) {
   }
 
   function handleChange(source, eventOrRgba) {
-    // console.log("source: ", source, "eventorrgba ", eventOrRgba);
-
     if (props.type === "color") {
       if (source === "textField") {
         updateLastActionTo("textField");
@@ -101,7 +95,6 @@ function BasicTextField(props) {
         //convert to hex
         const converted = rgba.hex(eventOrRgba);
 
-        // setValue(color);
         setThemeProps((oldProps) => {
           return { ...oldProps, [props.themeProp]: converted };
         });
@@ -111,7 +104,6 @@ function BasicTextField(props) {
     } else {
       //not a color, should be an event
       setValue(eventOrRgba.target.value);
-      // console.log("setting theme to", eventOrRgba.target.value);
       setThemeProps((oldProps) => {
         return { ...oldProps, [props.themeProp]: eventOrRgba.target.value };
       });

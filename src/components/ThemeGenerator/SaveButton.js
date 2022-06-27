@@ -1,9 +1,6 @@
 import React from "react";
 import { Button, Alert, Collapse, Grid, Snackbar } from "@mui/material";
-import { Box } from "@mui/system";
 import { ThemeGeneratorContext } from "./ThemeGenerator";
-import defaultTheme from "../UXPinWrapper/default-theme";
-import { mergeThemes } from "../../theming/utils/mergeThemes";
 
 function SaveButton(props) {
   const [open, setOpen] = React.useState(false);
@@ -33,7 +30,6 @@ function SaveButton(props) {
       }, 150);
     };
 
-    // setThemeProps({ resetTheme: true });
     localStorage.setItem("theme", JSON.stringify(theme));
     openAlert(true);
   };
@@ -67,7 +63,6 @@ function SaveButton(props) {
         </Alert>
       </Snackbar>
     </Grid>
-    // </Grid>
   );
 }
 

@@ -1,9 +1,5 @@
 import React from "react";
-import { ThemeGeneratorContext } from "./ThemeGenerator";
 import { Box } from "@mui/system";
-import MenuItem from "@mui/material/MenuItem";
-import BasicSelect from "./BasicSelect";
-import BasicTextField from "./BasicTextfield";
 import { Grid } from "@mui/material";
 import ColorsSection from "./ColorsSection";
 import { Alert, AlertTitle } from "@mui/material";

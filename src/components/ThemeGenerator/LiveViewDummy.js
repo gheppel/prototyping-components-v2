@@ -6,19 +6,12 @@ import CardContent from "../CardContent/CardContent";
 import CardHeader from "../CardHeader/CardHeader";
 import CardMedia from "../CardMedia/CardMedia";
 import Button from "../Button/Button";
-import Avatar from "../Avatar/Avatar";
-import Icon from "../Icon/Icon";
-import IconButton from "../IconButton/IconButton";
 import Typography from "../Typography/Typography";
 import { Alert, AlertTitle } from "@mui/material";
 
 export default function LiveViewDummy() {
   return (
     <React.Fragment>
-      {/* <Typography variant="caption" sx={{ mb: 3 }}>
-        ↓↓↓↓↓ These are just example components. Drag your own components into
-        this generator to see how they look in real time! ↓↓↓↓↓
-      </Typography> */}
       <Alert severity="info" sx={{ mb: 3 }}>
         <AlertTitle>Note</AlertTitle>
         These are just example components. Drag your own components into this

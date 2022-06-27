@@ -1,27 +1,10 @@
 import { createTheme } from "@mui/material/styles";
-import { themes, customize, vars, token } from "./themeCustomization";
-import { deepmerge } from "@mui/utils";
-import { hexToRgbA } from "./hexToRGBA";
+import { themes } from "./themeCustomization";
 import createPalette from "@mui/material/styles/createPalette";
 import Light from "../themes/light";
 import Dark from "../themes/dark";
 
 function mergeThemes(props) {
-  //console.log("mergeThemes called from ", props.calledFrom);
-  // console.log(
-  //   "currentTheme in ",
-  //   props.calledFrom,
-  //   "is: ",
-  //   " mode: ",
-  //   props.currentTheme.palette.mode,
-  //   " primary main: ",
-  //   props.currentTheme.palette.primary.main,
-  //   ", full theme: ",
-  //   props.currentTheme
-  // );
-  //console.log("ThemeProfile: ", props.themeProfile);
-  //console.log(props);
-
   //gets full theme data of the chosen theme (from themeCustomization.js)
   //returns the default theme if the given themeProfile is undefined
   function getThemeData(chosenTheme) {
@@ -40,9 +23,6 @@ function mergeThemes(props) {
     customizeGeneralProps();
     customizeColor();
     customizeFonts();
-
-    //test
-    //currentTheme.spacing = [0, 4, 8, 16, 32, 64];
 
     //general properties
     function customizeGeneralProps() {
@@ -110,15 +90,7 @@ function mergeThemes(props) {
         "action",
         "common",
       ];
-      // let fullColorObjects = [
-      //   "primary",
-      //   "secondary",
-      //   "error",
-      //   "warning",
-      //   "info",
-      //   "success",
-      //   "custom",
-      // ];
+
       let numberProps = ["Opacity", "Threshold", "tonalOffset"];
 
       //expects color props to be like: "props.palette_primary" or "props.palette_primary_light"
@@ -197,7 +169,6 @@ function mergeThemes(props) {
           }
         }
       });
-      // console.log("tempPalette: ", tempPalette);
       let createdPalette = createPalette(tempPalette);
 
       //updates the current theme with the calculated colors
@@ -205,9 +176,6 @@ function mergeThemes(props) {
         currentTheme.palette[mainColor] = createdPalette[mainColor];
       });
       if (Object.keys(tempPalette).length > 0) {
-        // console.log("temp:", tempPalette);
-        // console.log("created: ", createdPalette);
-        // console.log("resulting theme", currentTheme);
       }
     }
 
@@ -276,26 +244,18 @@ function mergeThemes(props) {
           propsToCheck.forEach((prop) => {
             let currentProp = variant + "_" + prop;
             if (props[currentProp] && props[currentProp] !== 0) {
-              // console.log("detected ", currentProp);
               currentTheme.typography[variant][prop] = props[currentProp];
-              // console.log(
-              //   "set theme for ",
-              //   currentProp,
-              //   " to ",
-              //   currentTheme.typography[variant][prop]
-              // );
             }
           });
         });
       }
     }
-    // console.log(currentTheme);
     return currentTheme;
   }
   if (props.resetTheme && props.resetTheme !== "") {
     //theme reset
+    //get default theme
     const defaultTheme = createTheme(getThemeData());
-    // console.log("theme reset");
     return defaultTheme;
   } else if (props.themeProfile !== undefined && props.themeProfile !== "") {
     //a specific theme was chosen
@@ -304,7 +264,6 @@ function mergeThemes(props) {
     const chosenTheme = createTheme(getThemeData(props.themeProfile));
 
     //merge any custom properties into it
-    // console.log("chosenTheme", chosenTheme);
     const customizedTheme = customizeTheme(chosenTheme);
     return customizedTheme;
   } else if (props.themeObject !== undefined && props.themeObject !== "") {

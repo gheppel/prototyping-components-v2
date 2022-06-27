@@ -1,6 +1,5 @@
 import React from "react";
 import { ThemeGeneratorContext } from "./ThemeGenerator";
-import { Box } from "@mui/system";
 import BasicTextField from "./BasicTextfield";
 import BasicSelect from "./BasicSelect";
 import { MenuItem } from "@mui/material";
@@ -35,7 +34,6 @@ function FontsSection(props) {
         expandIcon={<ExpandMoreIcon />}
         aria-controls={"fontssection" + props.variant + "_header"}
         id={"fontssection" + props.variant + "_header"}
-        // sx={{ borderBottom: "1px solid " + theme.palette.primary.main }}
         sx={{
           backgroundColor:
             theme.palette.mode === "dark"

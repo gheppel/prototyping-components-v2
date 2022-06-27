@@ -1,14 +1,9 @@
 import React from "react";
 import { Button } from "@mui/material";
-import { Box } from "@mui/system";
 import { Alert } from "@mui/material";
-import { Collapse } from "@mui/material";
 import { ThemeGeneratorContext } from "./ThemeGenerator";
 import { Grid } from "@mui/material";
 import Snackbar from "@mui/material/Snackbar";
-import defaultTheme from "../UXPinWrapper/default-theme";
-
-import { mergeThemes } from "../../theming/utils/mergeThemes";
 
 function ButtonWithAlert(props) {
   const [open, setOpen] = React.useState(false);
@@ -40,19 +35,9 @@ function ButtonWithAlert(props) {
 
     setThemeProps({ resetTheme: true });
     openAlert(true);
-    // .then(
-    //   () => {
-    //     openAlert(true);
-    //   },
-    //   () => {
-    //     openAlert(false);
-    //   }
-    // );
   };
-  // let message = "Theme object was copied to the clipboard!";
-  // let severity = "success";
+
   return (
-    // <Grid container display="flex" flexDirection="row">
     <Grid item>
       <Button
         variant={props.buttonVariant}
@@ -81,7 +66,6 @@ function ButtonWithAlert(props) {
         </Alert>
       </Snackbar>
     </Grid>
-    // </Grid>
   );
 }
 

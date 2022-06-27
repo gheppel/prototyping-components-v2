@@ -52,7 +52,6 @@ function Fonts() {
     "fontWeightBold",
   ];
   function handleCustomFontsChange() {
-    //setCustomFonts(event.target.value)
     let changedCustomFonts = document.querySelector(
       "#MUICustomFontsInput"
     ).value;
@@ -90,17 +89,10 @@ function Fonts() {
         }
       });
     }
-    // if (props.deleteCustomFonts === true) {
-    //   document
-    //     .querySelectorAll("link[id*='muiCCustomFont']")
-    //     .forEach((font) => font.remove());
-    // }
   }, [customFonts]);
 
   return (
     <React.Fragment>
-      {/* <Grid container flexDirection="column">
-        <Grid item> */}
       <Accordion>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
@@ -133,8 +125,7 @@ function Fonts() {
           </Grid>
         </AccordionDetails>
       </Accordion>
-      {/* </Grid> */}
-      {/* <Grid item> */}
+
       <Accordion>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
@@ -225,8 +216,7 @@ function Fonts() {
           </Grid>
         </AccordionDetails>
       </Accordion>
-      {/* </Grid> */}
-      {/* </Grid> */}
+
       {variants.map((variant, i) => (
         <FontsSection variant={variant} key={i} />
       ))}

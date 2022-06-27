@@ -24,7 +24,6 @@ function ColorsSection(props) {
     ThemeGeneratorContext
   );
   const miscellaneousProps = ["contrastThreshold", "divider", "tonalOffset"];
-  // console.log(props.children);
   return (
     <Grid container flexDirection="column">
       <Grid item flexGrow="0" p={2} display="inline" width="max-content">
@@ -36,7 +35,6 @@ function ColorsSection(props) {
         <Grid container flexDirection="row" mr={3}>
           {props.children.map((child, i) => {
             const childSplit = child.split("_");
-            // console.log(childSplit);
             const isMiscellaneous = miscellaneousProps.some(
               (miscellaneousProp) => childSplit.includes(miscellaneousProp)
             );

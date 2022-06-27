@@ -1,12 +1,8 @@
 import React from "react";
 import { Button } from "@mui/material";
-import { Box } from "@mui/system";
 import { Alert } from "@mui/material";
-import { Collapse } from "@mui/material";
 import { ThemeGeneratorContext } from "./ThemeGenerator";
 import Snackbar from "@mui/material/Snackbar";
-
-import { mergeThemes } from "../../theming/utils/mergeThemes";
 
 function CopyThemeButton(props) {
   const [open, setOpen] = React.useState(false);
@@ -43,8 +39,7 @@ function CopyThemeButton(props) {
       }
     );
   };
-  // let message = "Theme object was copied to the clipboard!";
-  // let severity = "success";
+
   return (
     <React.Fragment>
       <Button
@@ -72,18 +67,6 @@ function CopyThemeButton(props) {
           {alert.message}
         </Alert>
       </Snackbar>
-      {/* <Box mx={2}>
-        <Collapse in={open}>
-          <Alert
-            severity={alert.severity}
-            onClose={() => {
-              setOpen(false);
-            }}
-          >
-            {alert.message}
-          </Alert>
-        </Collapse>
-      </Box> */}
     </React.Fragment>
   );
 }

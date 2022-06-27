@@ -3,14 +3,7 @@ import { ThemeGeneratorContext } from "./ThemeGenerator";
 import { Box } from "@mui/system";
 import BasicSelect from "./BasicSelect";
 import BasicTextField from "./BasicTextfield";
-import {
-  Alert,
-  AlertTitle,
-  TextField,
-  MenuItem,
-  Grid,
-  createTheme,
-} from "@mui/material";
+import { TextField, MenuItem, Grid, createTheme } from "@mui/material";
 import evaluateThemeObj from "../../theming/utils/evaluateThemeObj";
 import { themes } from "../../theming/utils/themeCustomization";
 
@@ -79,9 +72,6 @@ function Settings(props) {
               themeProp="themeProfile"
             >
               <MenuItem value={"default"}>default</MenuItem>
-              {/* <MenuItem value={"light"}>light</MenuItem>
-              <MenuItem value={"dark"}>dark</MenuItem>
-              <MenuItem value={"hacker"}>hacker</MenuItem> */}
               {themes.themes.map((theme, i) => {
                 return (
                   <MenuItem value={theme.name} key={i}>
